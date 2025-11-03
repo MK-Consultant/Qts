@@ -1,0 +1,3126 @@
+<!DOCTYPE html>
+<html data-fr-scheme="system" lang="fr">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+  <meta name="theme-color" content="#000091">
+  <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/favicon/apple-touch-icon.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/favicon/favicon.ico" type="image/x-icon">
+  <title>Questionnaire conformité IA — Wizard</title>
+  
+  <!-- DSFR CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/utility/utility.min.css">
+  
+  <style>
+    .context-wrapper { position:relative; }
+    .link-btn { 
+      display:inline-block; margin-left:8px; padding:8px 12px; border-radius:6px; 
+      background:#000091; color:white !important; font-size:12px; font-weight:bold; 
+      cursor:pointer; text-decoration:none !important; border:none; 
+      vertical-align:middle;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .link-btn:hover { 
+      background:#1212FF !important; 
+      color:white !important; 
+      text-decoration:none !important; 
+    }
+    .link-btn:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    
+    .link-btn-disabled {
+      display:inline-block; margin-left:8px; padding:8px 12px; border-radius:6px; 
+      background:#666; color:white; font-size:12px; font-weight:bold; 
+      cursor:help; text-decoration:none; border:none; 
+      vertical-align:middle;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .step-info { 
+      margin-top:8px; font-size:14px; color:#666; font-weight:500; 
+      padding:8px 12px; background:#f6f6f6; border-radius:4px;
+    }
+    
+    .step-progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .step-progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .step-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #000091);
+      transition: width 0.3s ease;
+      border-radius: 3px;
+    }
+    
+    .step-text {
+      font-size: 12px;
+      color: #64748b;
+      white-space: nowrap;
+    }
+    
+    .hidden { display:none !important; }
+    
+    .loading-spinner {
+      display:inline-block; width:16px; height:16px; 
+      border:2px solid #f3f3f3; border-top:2px solid #000091; 
+      border-radius:50%; animation:spin 1s linear infinite; margin-right:8px;
+    }
+    
+    
+    /* Hauteur fixe pour les questions */
+    .question-container {
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Positionnement fixe des boutons de navigation */
+    .question-container .fr-btns-group:last-of-type {
+      margin-top: auto;
+    }
+    
+    @keyframes spin { 
+      0% { transform: rotate(0deg); } 
+      100% { transform: rotate(360deg); } 
+    }
+    
+    /* Responsive design pour mobile et tablette */
+    @media (max-width: 768px) {
+      .fr-container {
+        padding: 0 1rem;
+      }
+      
+      .fr-h1 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+      }
+      
+      .fr-h2 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+      }
+      
+      .fr-h3 {
+        font-size: 1.125rem;
+        line-height: 1.3;
+      }
+      
+      .fr-h4 {
+        font-size: 1rem;
+        line-height: 1.3;
+      }
+      
+      /* Améliorer l'espacement des boutons */
+      .fr-btns-group {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .fr-btns-group .fr-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      /* Améliorer l'affichage des grilles */
+      .fr-grid-row--gutters {
+        margin: 0 -0.5rem;
+      }
+      
+      .fr-grid-row--gutters > [class*="fr-col"] {
+        padding: 0 0.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      /* Améliorer l'affichage des callouts */
+      .fr-callout {
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+      
+      /* Améliorer l'affichage des liens */
+      .link-btn {
+        margin-left: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+      
+      /* Améliorer l'affichage des détails */
+      .fr-collapse {
+        margin: 0.5rem 0;
+      }
+      
+      /* Améliorer l'affichage des synthèses */
+      .fr-text--sm {
+        font-size: 0.875rem;
+        line-height: 1.4;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .fr-container {
+        padding: 0 0.75rem;
+      }
+      
+      .fr-h1 {
+        font-size: 1.25rem;
+      }
+      
+      .fr-h2 {
+        font-size: 1.125rem;
+      }
+      
+      .fr-h3 {
+        font-size: 1rem;
+      }
+      
+      .fr-h4 {
+        font-size: 0.875rem;
+      }
+      
+      /* Réduire l'espacement */
+      .fr-mb-4w {
+        margin-bottom: 1rem;
+      }
+      
+      .fr-mt-4w {
+        margin-top: 1rem;
+      }
+      
+      /* Améliorer l'affichage des boutons */
+      .fr-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+      }
+      
+      /* Améliorer l'affichage des inputs */
+      .fr-input {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+      }
+      
+      /* Améliorer l'affichage des textareas */
+      .fr-textarea {
+        min-height: 4rem;
+        font-size: 0.875rem;
+      }
+    }
+    
+    /* Adaptation pour l'impression */
+    @media print {
+      .fr-header, .fr-footer, .fr-progress, .fr-btns-group, .fr-btn { display:none !important; }
+      .fr-no-print { display:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="fr-skiplinks">
+    <nav class="fr-container" role="navigation" aria-label="Accès rapide">
+      <ul class="fr-skiplinks__list">
+        <li><a class="fr-link" href="#contenu">Contenu</a></li>
+        <li><a class="fr-link" href="#footer">Pied de page</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <header role="banner" class="fr-header fr-no-print">
+    <div class="fr-header__body">
+      <div class="fr-container">
+        <div class="fr-header__body-row">
+          <div class="fr-header__brand fr-enlarge-link">
+            <div class="fr-header__brand-top">
+              <div class="fr-header__logo">
+                <p class="fr-logo">République<br>française</p>
+              </div>
+            </div>
+            <div class="fr-header__service">
+              <a href="/" title="Accueil - questionnaire IA - République française">
+                <p class="fr-header__service-title">Délégation à la transformation numérique</p>
+              </a>
+              <p class="fr-header__service-tagline">Questionnaire conformité IA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu" role="main">
+    <div class="fr-container fr-py-12v">
+      <div class="fr-grid-row">
+        <div class="fr-col-lg-10 fr-col-offset-lg-1">
+          <h1 class="fr-h3 fr-mb-2w">Questionnaire conformité des projets IA (LLM)</h1>
+          <p class="fr-text--sm fr-mb-4w fr-text-mention--grey">
+            Ce questionnaire vous accompagne pas à pas dans l'analyse de la conformité de votre projet IA.<br>
+            <span id="intro-note">Répondez à chaque question, puis consultez la synthèse.</span>
+          </p>
+
+          <!-- Alertes -->
+          <div id="error-alert" class="fr-alert fr-alert--error fr-mb-2w hidden">
+            <h3 class="fr-alert__title">Erreur</h3>
+            <p id="error-message"></p>
+          </div>
+
+          <div id="success-alert" class="fr-alert fr-alert--success fr-mb-2w hidden">
+            <h3 class="fr-alert__title">Succès</h3>
+            <p id="success-message"></p>
+          </div>
+
+          <!-- Section principale du questionnaire -->
+          <div id="main-content">
+            <!-- Barre de progression -->
+            <div id="progressCard" class="fr-mb-4w">
+              <div class="fr-progress fr-mb-2w">
+                <div id="progressBar" class="fr-progress__bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+              </div>
+              
+              <!-- Nouvelle section avec barre de progression intégrée -->
+              <div class="step-progress-container">
+                <span id="stepLabel" class="step-text">Étape 1</span>
+                <div class="step-progress-bar">
+                  <div id="stepProgressFill" class="step-progress-fill" style="width: 0%"></div>
+                </div>
+                <span id="pctLabel" class="step-text">0%</span>
+              </div>
+              
+              <div id="stepInfo" class="step-info hidden"></div>
+            </div>
+
+            <!-- Contenu des étapes -->
+            <div id="stepContainer"></div>
+
+            <!-- Synthèse -->
+            <div id="synthContainer" class="hidden"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="fr-footer" role="contentinfo" id="footer">
+    <div class="fr-container">
+      <div class="fr-footer__body">
+        <div class="fr-footer__brand fr-enlarge-link">
+          <a href="/" title="Accueil - questionnaire IA - République française">
+            <p class="fr-logo">République<br>française</p>
+          </a>
+        </div>
+        <div class="fr-footer__content">
+          <p class="fr-footer__content-desc">Questionnaire conformité IA</p>
+          <ul class="fr-footer__content-list">
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" target="_blank" rel="noopener external" 
+                 title="info.gouv.fr - nouvelle fenêtre" href="https://info.gouv.fr">info.gouv.fr</a>
+            </li>
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" target="_blank" rel="noopener external" 
+                 title="service-public.fr - nouvelle fenêtre" href="https://service-public.fr">service-public.fr</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="fr-footer__bottom">
+        <ul class="fr-footer__bottom-list">
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" href="#" aria-label="Accessibilité : non conforme">Accessibilité : non conforme</a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" href="#">Mentions légales</a>
+          </li>
+          <li class="fr-footer__bottom-item">
+            <a class="fr-footer__bottom-link" href="#">Données personnelles</a>
+          </li>
+        </ul>
+        <div class="fr-footer__bottom-copy">
+          <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous 
+             <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener external" 
+                title="Licence etalab - nouvelle fenêtre">licence etalab-2.0</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Statistiques d'audience (discrètes) -->
+      <div id="audience-stats" class="fr-no-print" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 6px; opacity: 0.7;">
+            <span class="fr-icon-user-line" aria-hidden="true" style="font-size: 14px; color: #ffffff;"></span>
+            <span style="font-size: 12px; color: #ffffff;">
+              <span style="font-weight: 500;">Visiteurs :</span>
+              <span id="visitors-count" style="margin-left: 4px;">-</span>
+            </span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; opacity: 0.7;">
+            <span class="fr-icon-checkbox-circle-line" aria-hidden="true" style="font-size: 14px; color: #ffffff;"></span>
+            <span style="font-size: 12px; color: #ffffff;">
+              <span style="font-weight: 500;">Parcours terminés :</span>
+              <span id="completed-count" style="margin-left: 4px;">-</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts DSFR -->
+  <script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.2/dist/dsfr.module.min.js"></script>
+  
+  <!-- jsPDF pour la génération de PDF -->
+  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
+  <script>
+    const QUESTIONS_DATA = {
+  "entree": {
+    "id": 0,
+    "volet": "Srtucturant",
+    "question": "J'atteste que le Système d'IA ne traite aucune donnée personnelle et le modèle n'a jamais eu et n'aura jamais accès à des données prosnnelles.",
+    "contexte": "Un traitement de données personnelles comprend : la collecte, l'enregistrement, l'organisation, la conservation, la modification, l'extraction, la consultation, l'utilisation, la diffusion, l'effacement permettant d'identifier directement ou indirectement une personne physique. \n\nA l'inverse les agents IA sans état (Stateless) sont des systèmes qui traitent chaque interaction indépendamment, sans mémoire des échanges passés.\n\n",
+    "oui": "Si oui, ignorer le volet RGPD",
+    "non": "Vérifier le caractère identifiant et précis des données \n\nVérifier la présence de données rares, uniques ou minoritaires.\n\nVérifier le possible croisement d'un ensemble de données, un risque de ré-identification pourrait être possible",
+    "info": "Vérifier le caractère identifiant et précis des données suppose soit : \n   une identification directe (exemple : nom et prénom) ;\n   une identification indirecte (exemple : un numéro de téléphone, un numéro de sécurité sociale, une adresse postale, une image...).\n\nVérifier la présence de données dite \"outliers\", abberantes ou rares. Elles sont uniques ou minoritaires et donc personelles. Elles permettent à terme d'identifier spécifiquement une personne.  \n\nVérifier si le croisement d'un ensemble de données est possible. Si oui, elles sont personelles et le traitement permettra une identification indirecte (exemple : une femme vivant à telle adresse, née tel jour et membre de telle association). ",
+    "etapes": "Point d'entrée",
+    "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4"
+  },
+  "others": [
+    {
+      "id": 1,
+      "volet": "RGPD",
+      "question": "Le traitement de données à caractère personnel par le SIA a été prévu dans un cadre juridique bien défini.",
+      "contexte": "Le traitement de données à caractère personnel par le SIA implique de prévoir un cadre juridique clair afin d'assurer la conformité au RGPD dès la conception mais aussi garantir la confiance des personnes concernées dans ce SIA.\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Cartographie des données personnelles traitées avec des fiches resgistres\n\nIdentifier chaque acteur et leur rôle dans le processus de traitement\n\nEtablir des procédures de mises en conformité (privacy-by design) et de traitement des signalements",
+      "info": "1. Identifier précisément les données personnelles traitées (données agents, usagers, etc).\n2. Nommer un DPO\n3. Déterminer les sous-traitants et formaliser des contrats (RGPD art. 28).\n4. Organiser des processus internes de « privacy by design » (minimisation, finalité, conservation, sécurité, responsabilité...), \n5. Traitement des réclamations, anticipation des violations de données (prévoir procédure de notification à  la CNIL pour respecter le délai de  72h et aux personnes concernées dans les meilleurs délais. ",
+      "etapes": "Cadre général du RGPD",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2#Article5"
+    },
+    {
+      "id": 2,
+      "volet": "RGPD",
+      "question": "La finalité de traitement est déterminée, explicite et légitime ",
+      "contexte": "La finalité est l'objectif principal du traitement des données. \n\nL'article 5.1 b RGPD (*) : la finalité doit être déterminée, explicite et légitime dès le début du traitement. \n\n \n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Cadrer textuellement le projet pour l'utilisation et réutilisation des données : \n1. Rendre le projet clair et intelligible pour les personnes concernées \n2. Dresser une liste des capacités du système d'IA qui peuvent être raisonnablement prévues  \n3. Prévoir les conditions d'utilisation du système d'IA (cas d'usage connus + modalités d'utilisation comme une diffusion en source ouverte, en SaaS....)",
+      "info": "1. Cadrer le projet avant la collecte : \nDéterminer le but du fichier (objectif principal du traitement)\nSpécifier les finalités les plus à\" risque\" notamment (le type de donnée, les conséquences juridiques et financières...)\nDécrire les capacités du système : ses limites et ses fonctionnalités (capacités technique ex : LLM pour le résumé, la correction de texte, la classification…)\nIdentifier les personnes ayant vocation à interagir avec IA (l'âge, le genre, les vulnérabilités dues à un handicap…)\n\n2. Si le système est un GPAI :  \nPrendre en référence le grand type de système, les fonctionnalités et les capacités du système d'IA \nCartographier les cas usages et non pas seulement les données selon :  les finalités, le domaine , le destinataire du SIA, le modèle de LLM choisi pour le développement. \nPlusieurs finalités peuvent être déterminées dès lors qu'elles respectent l'article 5.1 \n\n4. Responsabilisation (facultatif) : \nSignature d'une charte : le  projet s'engage à ne pas aller au delà de la destination du système d'IA\nUne empreinte numérique (nom, adresse IP) de la personne qui détournerait  un système d'IA de sa finalité",
+      "etapes": "Cadre général du RGPD",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2#Article5"
+    },
+    {
+      "id": 3,
+      "volet": "RGPD",
+      "question": "Une base légale valide a été identifiée (principe de licéité du traitement)",
+      "contexte": "La base légale correspond au fondement juridique qui permet de rendre légitime le traitement des données selon la finalité visée.\n\nL'article 6 du RGPD (*) liste les six bases légales possibles\n\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Documenter et vérifier par finalité  : \n\n1. Si une loi ou un règlement peut autoriser ce traitement \n\n2. A défaut, si le traitement est directement lié à une mission/pouvoir de l'administration ou s'il est nécessaire à la bonne exécution d'une mission d'intérêt public \n\n3. En dernier lieu, si une autre base légale peut s'appliquer (par ex : recueil du consentement des usagers, ou l'intérêt légitime si les activités sont purement internes mais toujours liées et ou utiles à l'exercice des  missions de la DGFIP)\n",
+      "info": "1. Si aucune base légale n'est identifiée : \nIl conviendra de suspendre le déploiement du système jusqu'à identification d'une base légale. \nLa base légale devra dépendre de la situation et du type de traitement mais il n'y a pas de priorité/ ou de classification des bases légales\nIl conviendra de déterminer si le traitement est bel et bien adapté à la base juridique (par exemple : la loi doit être assez englobante et donc couvrir l'ensemble des besoins ou ne pas aller au-delà de ce qui est objectivement nécessaire à l'exécution du contrat).\n\n2. Le choix d'une base légale prévue par l'article 6 du RGPD : \nSi une loi ou un règlement peut autoriser ce traitement \nA défaut, si le traitement est directement lié à une mission/pouvoir de l'administration ou s'il est nécessaire à la bonne exécution d'une mission d'intérêt public \nEn dernier lieu, si une autre base légale peut s'appliquer (par ex : recueil du consentement des usagers, ou l'intérêt légitime si les activités sont purement internes mais toujours liées et ou utiles à l'exercice des  missions de la DGFIP)\n\n3. La base légale choisie devra : \nFigurer dans les éléments d'information fournis aux personnes dont les données sont traitées\nEtre démontrée par une documentation sur le choix de la base légale\n\n4.  Le traitement de données dites \"sensibles\" mentionnées à l'article 9 du RGPD, est interdit, sauf exceptions :     \nLe traitement est valablement fondé sur une des bases légales prévues à l'article 6 du RGPD \nUne des exceptions mentionnées à l'article 9 du RGPD est applicable au traitement concerné (pour l'administration il s'agira le plus souvent du consentement de la personne concernée ou d'une mission d'intérêt public)",
+      "etapes": "Cadre général du RGPD",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2#Article5"
+    },
+    {
+      "id": 4,
+      "volet": "RGPD",
+      "question": "Une durée de conservation des données a été définie",
+      "contexte": "Une durée de conservation des données doit être déterminée en fonction de l'objectif de la collecte\n\nL'article 5 e) du RGPD (*), la durée ne doit pas excéder celle nécessaire au regard des finalités du traitement. \n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "1. Déterminer une durée de conservation selon l'objectif fixé \n\n2. Déterminer des règles et une procédure de suppression des données\n\n3. Déterminer les phases du cycle de vie d'une donnée (indication des durées selon cette distinction)",
+      "info": "Le RGPD ne donne pas des durées de conservation précises pour chaque traitement, iI appartient donc au responsable de traitement de déterminer au cas par cas les durées pertinantes : \n\n1. Se poser la question du cadre légal : \nIdentifier si un texte juridique prévoit une durée de conservation et le cas échéant, déterminer la durée selon les besoins opérationnels. \nDéfinir des durées pour l'ensemble du cycle de vie de la donnée :  pour la conservation en base active, l'archivage intermédiaire et l'archivage définitif  \nDéfinir des durées maximales de conservation \nEtablir une séparation pysique entre la  base active et l'archivage intermédiaire\nEffectuer un tri avant d'archiver des données (ne conserver pour l'archivage que celles nécessaires)\n\n2. La méthodologie si un doute persiste : \nS'appuyer sur les préconisations de la CNIL ou sur les usages du métier : ex : les échanges internes non nominatifs (conservation qui se compte en mois) / les données sur l'usager (conservation qui dépend des besoins pour le traitement du dossier)\nSi certaines données doivent être stockées plus longtemps pour alimenter l'amélioration du système ou pour des statistiques, isoler ces données, anonymiser et encadrer strictement cet usage annexe.\n\n3. Documentation et résilience \nFormaliser ces durées sous forme de tableau selon : a. les phases du cycle de vie des données b. le traitement visé c. les données supprimées ou anonymisées le cas échéans. \nMettre en place un processus d'effacement effectif et automatique dès qu'une durée arrive à son terme (prévoir des contrôles réguliers permattnt de vérifier que la suppression/archivage s'exécute comme prévu).\nConserver une preuve de l'effacement pour justifier de la conformité",
+      "etapes": "Cadre général du RGPD",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2#Article5"
+    },
+    {
+      "id": 5,
+      "volet": "RGPD",
+      "question": "Le traitement est adéquat, pertinent et limité  (minimisation des données)",
+      "contexte": "La minimisation s'applique tout au long du traitement et permet de restreindre la collecte à ce qui nécessaire au bon fonctionnement du système d'IA\n\nArticle 5.1 c du RGPD (*) les données doivent être adéquates, pertinentes et limitées à ce qui est nécessaire au regard des finalités pour lesquelles elles sont traitées.",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "1.  Pendant la collecte et les phases de test :\nDocumenter les catégories de données selon les catégories de personnes et selon un premier puis second ensemble de finalités... \nVérifier que la donnée visée n'est pas soumise à une restriction particulière (notamment par décret)\nSi une  journalisation des données est mise en oeuvre, il ne faut collecter que celles nécessaires à la traçabilité  \n\n2. Au stade de l'utilisation il convient de prévoir une veille et une purge des données régulière et documentée",
+      "info": "1.  Pendant la collecte et la phase de test :Pours les catégories de données : les classer en fonction des personnes concernées et selon un premier puis second ensemble de finalités...  Ex : pour l'analyse de document, ne traiter que les champs requis (ignorer/supprimer les informations hors sujet comme des données personnelles incidentes non utiles)\nPour les restrictions particulières (l'interdiction ou l'autorisation est souvent prévue  par décret). Ex : la collecte du NIR n'est possible que pour certains cas d'usages du secteur de la santé ou du secteur social.\nPour la journalisation des données : ne collecter que celles nécessaires à la traçabilité  (celles utiles au fonctionnement de IA  ne  sont pas à conserver).\nPour le jeu de donnée d'entraînement (sa source, son filtrage, afin de justifier que chaque catégorie de données a sa raison d'être) .Si possible, utiliser des données fictives ou anonymisées afin de réduire leur précision. \nPour les métriques : elles doivent être utilisées  pour mesure la performance du système et les conséquences pour les personnes concernées\n\n2. Au stade de l'utilisation :.  \nSi la donnée n'est pas strcitement nécéssaire il est possible de collecter cette données si l'utilisateur peut choisir d'utiliser ou non cette fonctionnalité (principe du consentement). \n ",
+      "etapes": "Cadre général du RGPD",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre2#Article5"
+    },
+    {
+      "id": 6,
+      "volet": "RGPD",
+      "question": "J'ai vérifié et confirme que les données données traitées ne sont pas sensibles ou biométriques ? ",
+      "contexte": "Les données sensibles sont définies à l'article 9 (*) et forment une catégorie particulière de données personnelles. \n\nLes données biométriques sont une sous catégorie de ces données dites \"sensibles\" et regroupent celles relatives à des caractéristiques physiques, physiologiques ou comportementales (la voix : permet de déduire : l'âge d'un individu, son sexe, ses origines, son éducation, ses ressentis, son état physique ou psychique…)\n\n",
+      "oui": "Si oui, Une Analyse d'Impact sur la Protection des Données (AIPD/DPIA) a-t-elle été réalisée si requise ?",
+      "non": "Vérifier que les données peuvent identifier une  personne physique de manière unique\n\nVérifier que le traitement comporte un risque élevé pour la vie privée et les droits fondamentaux des individus \n\nVérifier que les données peuvent relever de la prétendue origine raciale ou ethnique, de l'opinion politique, de conviction religieuse ou philosophique ou de l'appartenance syndicale,\n\nVérifier que le traitement peut concerner des données génétiques ou biométriques",
+      "info": "1. Déterminer la composition du système selon : \nles  éléments physiques ou \"matériels\" de gestion du dispositif biométrique (un lecteur d'empreinte digitale, des badges sur lesquels sont stockées les données biométriques)\nles éléments \"logiciels\" les systèmes d'exploitation sur lesquels de telles interfaces sont installées\n\n2. Identifier les trois grands types de dispositifs biométriques :\nLe \"type 1\" ou gabarit sous maîtrise exclusive de la personne concernée\nLe \"type 2\" ou gabarit sous maîtrise partagée\nLe \"type 3\" ou gabarit sous maîtrise exclusive du responsable de traitement",
+      "etapes": "Nature des données traitées",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4"
+    },
+    {
+      "id": 7,
+      "volet": "RGPD",
+      "question": "Les mesures juridiques sont-elles prises pour le traitement de donnnées sensibles ou biométriques ?  ",
+      "contexte": "\nUne donnée sensible ou  biométrique est intransèque à la personne concernée : \n\nLes données sensibles sont définies à l'article 9 (*) et forment une catégorie particulière de données personnelles. \n\nLes données biométriques sont une sous catégorie de ces données dites \"sensibles\" et regroupent celles relatives à des caractéristiques physiques, physiologiques ou comportementales (la voix : permet de déduire : l'âge d'un individu, son sexe, ses origines, son éducation, ses ressentis, son état physique ou psychique…)\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "1. Mettre en place des mesures de transparence (informer sur les données traitées, les mises à jour et les dysfonctionnements)\n\n2.Tracer les lignes rouges du projet avant même tout usage expérimental du SIA \n\n3. Permettre à l'utilisateur de garder la main sur les données traitées et receuillir son consentement\n\n5. Démarche expérimentale pour tester et parfaire ces solutions technologiques \n\n6. Démarches administratives afférentes si nécessaire ",
+      "info": "1. Les démarches administratives à réaliser :  \nRédiger un décret en Conseil d'État après avis de la CNIL\nS'il existe déjà, il faut se fonder sur celui-ci ou le mettre à jour au besoin\nTout organisme public (collectivités locales, ministères, etc.) qui en tant qu'employeur met en oeuvre un traitement biométrique doit appliquer le règlement type proposé par la CNIL\n\n2.Tracer des lignes rouges du projet avant même tout usage expérimental du SIA\nIdentifier les usages strictement interdits car trop intrustifs de la vie privée et des libertés indivciduelles\n\n3. Permettre à l'utilisateur de garder la main sur le système d'IA. Par exemple s'il s'agit d'une IA qui a pour but de faire du traitement de voix, l'utilisateur du système pourrait couper son micro ou s'opposer à l'enregistrement de la voix. \n\n4. Mettre en oeuvre une expérimentale qui permettra de tester et de parfaire des solutions techniques respectueuses du cadre juridique (modalités d'évaluation rigoureuse, contradictoire, pluridisciplinaire, limitée dans le temps, dispositif comparé avec d'autres dispositifs techniques). ",
+      "etapes": "Nature des données traitées",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre1#Article4"
+    },
+    {
+      "id": 8,
+      "volet": "RGPD",
+      "question": "Une Analyse d'Impact sur la Protection des Données (AIPD/DPIA) a été réalisée",
+      "contexte": "\n\nL'analyse d'impact consiste à évaluer les risques liés aux traitements de données personnelles, conformément à l'article 35 du RGPD (*) , en identifiant, en mesurant et en limitant les risques pour la vie privée et en assurant la conformité des traitements. \n\nElle doit être menée avant la mise en œuvre du traitement et devra être mise à jour tout au long du cycle de vie du traitement.\n ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Déterminer si une AIPD est nécessaire et la réaliser si c'est le cas ;\nAccomplir la démarche de conformité ;\nMettre en place les mesures de résilience.",
+      "info": "1. Déterminer si une AIPD est nécessaire :   \nsi elle fait partie de la liste des traitements recensés par la CNIL.\nsi elle répond cumulativement à au moins deux critères ou de façon suffisament grave à l'un de ces critères : l'évaluation/scoring (y compris le profilage), la décision automatique avec effet légal ou similaire, la surveillance systématique, le traitement de données sensibles ou hautement personnelles (santé, géolocalisation, etc.), la collecte à large échelle, le croisement de données, les personnes vulnérables (patients, personnes âgées, enfants, etc.), un usage innovant ou l'exclusion du bénéfice d'un droit/contrat\n\n2. Démarche de conformité devra reposer sur : \nLe respect des principes et droits fondamentaux, indépendament de la nature, la gravité et la vraisemblance des risques ;\nDes mesures de gestion des risques spécifiques à la vie privée\n\n3. Mesures de résilience \nImpliquer au moins : le DPO, un référent métier, un expert technique et un juriste. \nSi l'analyse révèle des risques non atténués, saisir la CNIL pour avis avant mise en service. \nSi l'organisme justifie qu'aucun critère de risque élevé n'est rempli et qu'une AIPD n'est pas obligatoire, documenter noir sur blanc cette évaluation (preuve en cas de contrôle). ",
+      "etapes": "Nature des données traitées",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article35"
+    },
+    {
+      "id": 9,
+      "volet": "RGPD",
+      "question": "\n\n\n\nLes droits des personnes sont respectés et les mesures pour leur application sont implémentées ?",
+      "contexte": "\n\nL'information des utilisateurs vise à assurer la transparence sur la collecte et le traitement des données. L'information préalable facilite l'exercice éclairé des droits. \n\nLes droits des utilisateurs permettent à l'utilisateur de maîtriser et de contrôler ses données personnelles.\n\nLe CHAPITRE III du RGPD(*) regroupe l'ensemble des ces droits : l'accès, la rectification, l'effacement, la limitation, la portabilité et l'opposition au traitement de leurs données personnelles. \n\n\n\n",
+      "oui": "Si oui, passer à la case suivante ",
+      "non": "Distinguerclairement le droit à l'information et l'exercice des droits\n\n\nVérifier que l'information est concise, transparente, compréhensible et aisément accessible des personnes concernées\n\nFaire le bilan des droits applicables et répértorier les demandes d'exercice \n\nS'assurer que l'utilisateur a une bonne compréhension de ses doits\n\nPrévoir un moyen d'isoler ou de supprimer les données d'une personne sur demande ",
+      "info": "1. Distinguer visuellement l'information et les droits sur l'interface utilisateur avec des onglets différents : \na. Pour l'information : un onglet « fonctionnement de l'IA et mes droits » et avec la possibilité de télécharger les documents d'information\nb. Pour l'exercice des droits : un onglet « exercer mes droits » : avec la mise à disposition d'un formulaire... et tracer l'activité des utilisateurs : avec un mail  récap « vous avez exercé votre droit à …. » \n\n2. Prévoir un affichage différencié (temporellement) selon le type de SIA. \nPar exemple avec un chatbot : le premier contact suppose automatiquement un message « vous interagissez avec une IA »,  puis un lien « pour en savoir plus » comprenant des documents d'informations\n\n3. S'assurer que l'utilisateur a au premier contact fait la distinction entre l'une et l'autre de ces notions : \nUne case que l'utilisateur doit cocher « j'ai compris » ou « j'accepte les conditions générales d'utilisation ». \n\n4. Les allègements, peuvent être prévus au droit à l'information (prévu par l'article 14.5 du RGPD), notamment si la personne est déjà informée ou si l'effort d'information est disproportionné. \n\n5. En principe ce droit à l'information devra  comporter les éléments suivants : \nLa finalité, la base légale et la durée de conservation des données selon la finalité\nLe cadre de l'accès aux données (catégories de services interne compétents)\nLes modalités d'exercice des droits\nEn cas de d'utilisation ultérieure des données il conviendra également d'informer spécifiquement et clairement l'utilisateur de cet usage\nEn cas d'évolution du logiciel et/ou mises à jour, l'utilisateur doit en être averti  (nature des changements et conséquences)\nEn cas de dysfonctionnements : intégrer des mécanismes d'information et d'alerte de l'utilisateur",
+      "etapes": "Etape  : les personnes au cœur du traitment (information et droits)",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3"
+    },
+    {
+      "id": 10,
+      "volet": "RGPD",
+      "question": "Des mesures techniques et organisationelles sont-elles prises pour garantir le sécurité des données ?  ",
+      "contexte": "L'article 32 du RGPD (*)  impose de mettre en œuvre des mesures techniques et organisationnelles adaptées pour garantir la sécurité des données personnelles, en fonction du risque associé au traitement.\n\n→ assurer le bon fonctionnement technique d'un SIA permet de prévenir des atteintes  aux droits fondamentaux de la charte : la protection des données (article 8), droit à une bonne administration (article 41), droit à la non discrimination (article 21)  \n\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Signaler à la CNIL dans les 72 heures toutes violations  susceptibles de représenter un risque pour les droits et libertés des personnes concernées\n\nRemplir la check liste permettant d'avaluer le niveau de sucité des données personnelles : \nhttps://www.cnil.fr/sites/cnil/files/2024-03/guide_securite_donnees_personnelles_checklist.pdf",
+      "info": "1. Mise en place d'un protocole d'action : \nUn protocole qui s'active automatiquement dès lors qu'un certain seuil d'alerte  est identifié : selon  la gravité (l'ampleur du risque/caractère préjudiciable pour les personnes concernées),  la vraisemblance (la possibilité que le risque se réalise/ vulnérabilités du support), le profil de l'attaquant et la généralisation de l'attaque (le nombre de personnes concernées)\n Un protocole qui prévoit les types de risques et les solutions dégradées à mettre en œuvre selon les données ciblées lors de l'attaque (données à caractère personnel d'usage courant, relatives à des personnes vulnérables...)\n\n2. Une démarche de résilience : \nSimuler des attaques (prévoir le nombre de simulation par an, faire un REX et en tirer les conséquences en matière opérationnelles, prévoir des formations ciblées par agent selon les difficultés rencontrées )\nEviter le croisement de fonctionnalités par une séparation technique et non pas que juridique (API différentes pour séparer les connexions, des bases de données différentes...).\nPrévoir une procédure de sauvegarde et de récupération des données en cas d'incident\nNe pas faire correspondre des données sensibles avec d'autres fichiers susceptibles d'être collectées (identifiants de l'appareil, localisation,comptes associés, etc.)\n\n3. Pour l'utilisateur,  il convient d'établir un niveau de garantie élevé : \nCAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) pour s'authentifier sur un compte personnel\nLimiter le nombre d'interface par utilisateur  pour limiter la surface matérielle d'attaque du système\nMettre à jour les antivirus et logiciels\nDes profils distincts selon les besoins des utilisateurs  ",
+      "etapes": "Etape  : sécurisation des données",
+      "lien": "https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre4#Article32"
+    },
+    {
+      "id": 11,
+      "volet": "RGPD",
+      "question": "Les données personnelles peuvent-elle être annonymisées ? ",
+      "contexte": "\nll peut convenir selon  les cas d'usages, d'anonymiser les données pour éviter de façon certaine tout traitement de données personnelles ultérieur pour cause d'un problème technique ou d'une ré identification par croisement de données.  ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "1. Mettre en place un process d'anonymisation ;\n\n2. Effectuer des tests pour évaluer la robustesse de l'anonymisation et le risque de ré-identification.",
+      "info": "I. Mettre en place un process d'anonymisation en  étapes :  \n   1ère étape : sélection des données pertinentes s'il y a une anonymisation : définir la granularité des données et contextualiser pour confirmer que l'anonymisation n'est pas trop contraignante pour le bon fonctionnement du SIA.  \n    2e étape :  anonymisation soit par randomisation (modifier les attributs dans un jeu de données) / soit par généralisation (modifier l'échelle des attributs des jeux de données)\n    3e étape : documenter les données anonymisées pour  justifier que toutes les mesures techniques et organisationnelles ont été prises en cas de contrôle.\n\nII. Mettre en place des tests pour évaluer la robustesse de l'anonymisation et le risque de ré identification \n   Déterminer des process de mise en situation afin de déterminer des éléments d'identification direct et potentiels (un état civil, un SPI…) en croisant des données. \n   Déterminer des intervalles de test en vue de préserver, dans le temps, le caractère anonyme des données \n",
+      "etapes": "Etape  : sécurisation des données",
+      "lien": "https://www.cnil.fr/fr/technologies/lanonymisation-de-donnees-personnelles"
+    },
+    {
+      "id": 12,
+      "volet": "Srtucturant",
+      "question": "J'atteste que le Système d'IA n'est concerné par aucune pratique interdite selon l'IA Act.",
+      "contexte": "L'article 5(*) de l'AI Act liste l'ensemble des pratiques interdites que sont notammment : \n→ les techniques de manipulation subliminales,  exploitant les vulnérabilités liées à l'âge, au handicap ou à la situation sociale, de surveillance biométrique, de notation sociale ou toute technique susceptible de causer un préjudice important ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Adapter ou abandonner le projet pour éliminer la fonctionnalité interdite. \n\n",
+      "info": "1. Adapter ou abandonner le projet pour éliminer la fonctionnalité interdite. Par ex : désactiver le module de reconnaissance émotionnelle de l'assistant intelligent, ou le restreindre à un usage autorisé. \n\n2.  Si un doute subsiste sur le caractère interdit, demander l'avis du DPO ou de la CNIL. \n",
+      "etapes": "Etape  : Définition du SIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/article/5/"
+    },
+    {
+      "id": 13,
+      "volet": "IA Act",
+      "question": "Le Système d'IA n'est pas considéré « à haut risque » ? ",
+      "contexte": "L'article 6 du RIA définit les Systèmes d'IA à haut risque (SIA à haut risque) et précise les critères (portée sur la santé, sécurité ou droits fondamentaux) avec des listes d'usages en annexes, ainsi que les obligations associées pour les opérateurs et la conformité à anticiper (lignes directrices et responsabilités tout au long de la chaîne de valeur).\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "La catégorisation \"IA à haut risque\" impose des exigences de conformité plus strictes et une gestion des risques plus rigoureuse pour garantir la sécurité, la confidentialité et la protection des données personnelles des personnes physiques.\n",
+      "info": "1. Exigences de conformité renforcées : Les systèmes d'IA à haut risque sont soumis à des exigences de conformité plus strictes, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n2. Analyse d'impact sur les droits fondamentaux : Les déployeurs de systèmes d'IA à haut risque doivent effectuer une analyse d'impact sur les droits fondamentaux, conformément à l'article 27 du règlement, pour évaluer les risques potentiels pour les droits fondamentaux des personnes physiques. \n3. Gestion des risques : Les systèmes d'IA à haut risque doivent être soumis à une gestion des risques plus rigoureuse, incluant l'identification, l'évaluation et la mitigation des risques potentiels pour la santé, la sécurité et les droits fondamentaux des personnes physiques. \n4. Essais et tests : Les systèmes d'IA à haut risque doivent être soumis à des essais et des tests plus rigoureux pour garantir leur conformité aux exigences de sécurité et de performance. \n5. Surveillance et maintenance : Les systèmes d'IA à haut risque doivent être soumis à une surveillance et une maintenance continues pour garantir leur conformité aux exigences de sécurité et de performance. \n6. Formation et sensibilisation : Les déployeurs de systèmes d'IA à haut risque doivent fournir une formation et une sensibilisation appropriées aux utilisateurs et aux personnes impliquées dans la mise en œuvre et la maintenance du système. \n7. Documentation et traçabilité : Les systèmes d'IA à haut risque doivent être documentés de manière appropriée, incluant la traçabilité des décisions et des actions prises par le système. \n8. Conformité aux normes et réglementations : Les systèmes d'IA à haut risque doivent être conformes aux normes et réglementations applicables, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n9. Évaluation et certification : Les systèmes d'IA à haut risque peuvent être soumis à des évaluations et des certifications par des organismes tiers pour garantir leur conformité aux exigences de sécurité et de performance. \n10. Responsabilité et accountability : Les déployeurs de systèmes d'IA à haut risque sont responsables de la conformité de leur système et doivent être en mesure de démontrer leur conformité aux exigences de sécurité et de performance. \n\n",
+      "etapes": "Etape  : Définition du SIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/section/3-1/"
+    },
+    {
+      "id": 14,
+      "volet": "IA Act",
+      "question": "Les données d'utilisation ne sont pas assimilées pour améliorer le Système d'IA (auto-optimisation après déploiement) ",
+      "contexte": "L'apprentissage continu permet aux modèles de s'adapter en permanence à de nouvelles données. \nLe SIA sera plus flexible, évolutif et personnalisé.\n\nL'Annexe XIII du RIA (*) classe ces SIA. Selon le niveau d'autonomie ils peuvent présenter un risque systémique\n→ Encadrer cette optimisation est une étape clé afin d'éviter toutes dérives du modèle. ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "1. Maîtrise par l'agent du SIA : \n- Une validation par un agent humain pour toute optimisation importante (implique de fixer des seuils ou l'optimisation  car trop importante nécessite un contrôle)  \n- Offrir aux utilisateurs un choix quant à l'utilisation de leurs données pour l'apprentissage continu. Par exemple, permettre aux agents de marquer certaines conversations comme « à ne pas réutiliser pour entraîner l'IA », ou, si des données d'usagers sont impliquées, prévoir un mécanisme d'opt-out pour ces usagers.\n\n2. Finalité / minimisation\n-  Implémenter un  système qui permet de supprimer les donnée s d'optimisation plus rapidement (purge automatique plus régulières)\n- Séparer les finalités : considérer l'apprentissage continu comme un traitement à part avec sa propre base légale (souvent l'intérêt légitime du fournisseur à améliorer son IA, qui doit être mis en balance avec les droits des personnes). \n- Garanties : pseudonymisation des données avant réutilisation\n\n3. Prévoir des modes d'apprentissage différenciés : \n-  Dysfonctionnement : de l'algorithme \n- Retour utilisateur : donne une contextualisation servant à l'amélioration\n- La collecte pure et simple de nouveaux champ de données\n\n4. Vérifier l'échantillonnage des données d'amélioration :\n- documenter les éléments  mis à jour et  si auto-tuning (à préciser et dans quel cadre)\n- vérifier que  ne cible pas les mêmes groupes de personnes ou de données (l'objectif étant d'éviter les discriminations)   \n - Mettre en place un système de validation croisée des données ( objectif est de prévoir une réserve de  données pour  l'entraînement et le reste pour la validation du dataset) \n",
+      "info": "1. L'IA doit pouvoir aussi s'améliorer : \nSi un dysfonctionnement de l'algorithme est identifié\nSi un retour utilisateur est très négatif (atteinte à ses droits par exemple)\n\n2.  Documenter et justifier le fine tuning :  \nDéterminer des objectifs explicites  par des personnes humaines.\nDocumenter la solution exploitée pour éviter le ré entraînement: prompt engineering, Lora (low rank adaptation), RAG (retrieval-augmented generation)\n Validation sur des groupes distincts de données : éviter que les données soit trop ajustées afin d'éviter le sur ajustement \nFine tuning progressif  avec des spécialisation de plus en plus précises selon les résultats observés \nDéfinition des « hyper paramètres » : le taux d'apprentissage, le nombre d'itérations et la taille du lot",
+      "etapes": "Etape : L'autonomie du SIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/annex/13/"
+    },
+    {
+      "id": 15,
+      "volet": "IA Act",
+      "question": "Le système d'IA embarque-t-il des règles d'auto-limitation ou de conditionnement afin d'éviter les usages abusifs ou détournés ?",
+      "contexte": "L'auto-limitation suppose que le SIA est en capacité : \n→ d'informer l'utilisateur qu'il n'a pas la réponse à la question posée ; \n→ qu'il ne peut pas aller au delà de ce pourquoi il est programmé. \n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Pour éviter les usages abusifs ou détournés d'un système d'IA, il est crucial de prendre des mesures proactives pour garantir la sécurité, la robustesse et la résilience de ces systèmes, ainsi que de veiller à ce qu'ils soient conçus et développés de manière à prévenir les comportements préjudiciables ou indésirables. Ces mesures doivent être mises en œuvre en respectant les valeurs de l'Union relatives au respect de la dignité humaine, à la liberté, à l'égalité, à la démocratie et à l'état de droit, ainsi que les droits fondamentaux consacrés dans la Charte.",
+      "info": "Pour éviter les usages abusifs ou détournés d'un système d'IA, il est essentiel de prendre des mesures techniques et organisationnelles pour garantir la robustesse et la sécurité de ces systèmes. Voici quelques éléments clés mentionnés dans les sources :\n\n1 - Conception et développement de solutions techniques appropriées : Il est important de concevoir et de développer des solutions techniques qui préviennent ou réduisent au minimum les comportements préjudiciables ou indésirables. Cela peut inclure des mécanismes permettant au système d'interrompre son fonctionnement en toute sécurité en cas d'anomalies ou de fonctionnement en dehors de certaines limites déterminées au préalable.\n\n2 - Mesures de sécurité après défaillance : Les systèmes d'IA doivent être conçus pour interrompre leur fonctionnement de manière sécurisée en cas de défaillance ou d'anomalie, afin d'éviter tout préjudice.\n\n3 - Garantir la résilience face aux comportements préjudiciables : Les systèmes d'IA à haut risque doivent être résilients face aux comportements préjudiciables ou indésirables qui pourraient résulter de limites intrinsèques aux systèmes ou de l'environnement dans lequel ils fonctionnent.\n\n4 - Cybersécurité : La cybersécurité joue un rôle crucial pour garantir la résilience des systèmes d'IA face aux tentatives de détourner leur utilisation, leur comportement ou leurs données. Il est essentiel de mettre en place des mesures de cybersécurité robustes pour protéger les systèmes d'IA contre les menaces et les attaques.",
+      "etapes": "Etape : L'autonomie du SIA ",
+      "lien": ""
+    },
+    {
+      "id": 16,
+      "volet": "IA Act",
+      "question": "Une intervention humaine est-elle garantie ? \n",
+      "contexte": "L'article 14 du RIA (*) prévoit une supervision humaine. \n\nHuman-in-the-Loop (l'agent intervient dans le processus décisionnel il prend la décision finale)\n\nHuman-on-the-Loop (l'agent supervise en temps réel le fonctionnement du SIA et intervient en cas d'alerte automatique)\n\nHuman-in-Command (superviser la gouvernance des données)\n\nS'ajoute l'article 22 du RGPD qui interdit de prendre une décision fondée exclusivement sur un traitement automatisé de données, ayant des effets juridiques affectant de manière significative la personne (décisions irréversibles non contrôlées)",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Prévoir la possibilité de  recours d'un administré  contre toute mesures prises à l'aide d'un SIA\n\nGarantir en tout temps l'intervention humaine;",
+      "info": "1. Maîtrise du SIA par un agent  : \nUne validation par un agent humain pour toute optimisation importante (fixer des seuils ou l'optimisation  est trop importante et nécessite un contrôle)  \nPar ex : permettre aux agents de marquer certaines conversations comme « à ne pas réutiliser pour entraîner l'IA », ou, si des données d'usagers sont impliquées, prévoir un mécanisme d'opt-out.\nDonner des seuils  au dessus desquels une intervention de l'agent  s'impose pour arrêter le fonctionnement d'un SIA (stopper l'accès à un chatbot pour : contrôle, révision..)\n\n2. Garanties formalisées (par un protocole) : \nLes personnes en charge des décisions doivent être expressément désignées  \nDéfinir le degré d'intervention selon le human in command, on et in the loop. Par exemple dans le cas où la décision peut avoir un impact sur l'attribution des droits ou sur la décision RH, il faudra priviligier le human in the loop. \n Une justification à chaque décision prise par l'agent humain afin d'éviter les risques de biais humain ( éviter l'influence d'un opérateur qui accorde trop de confiance à la réponse donnée par le SIA).\n\n3. En cas de recours d'un administré : \nArt. L312-3 CRPA : possibilité d'un recours du contribuable contre l'interprétation d'une règle, même erronée\nConserver le code source : en cas de litige (éviter un réseau de neurones  opaque et préférer un modèle à règles ou un arbre de décision…",
+      "etapes": "Etape  : Place de l'humain dans l'usage du SIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/article/14/"
+    },
+    {
+      "id": 17,
+      "volet": "IA Act",
+      "question": "Les personnes physiques en charge du développement/parmetrage du SIA ont-elles été sensibilisées aux enjeux juridiques ?",
+      "contexte": "L'article 10 du RIA (*) évoque la prévention des risques de biais. La sensibilisation permet d'identifier et d'évaluer les risques liés aux biais pour in fine mettre en place des garanties contre l'erreur humaine : \n\n « Biais d'ancrage » influence trop importante / sur-dépendance au SIA / priorité à la première impression\n\n « Biais d'automatisation » confiance trop importante dans la décision proposée par le SIA\n\nMauvaise lecture/interprétation de ce qui ressort de l'analyse de l'IA",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Formations obligatoires\n\nDéploiement progressif du SIA (bac à sable règlementaires)\n\nRédiger une politique interne pour le déploiement du système d'IA",
+      "info": "1. Sensibiliser les développeurs aux enjeux juridiques, techniques, éthiques et moraux de l'IA : \nFormations obligatoires sur le RIA avant l'usage d'un SIA avec un questionnaire qui conditionne l'accès au système d'IA\nFormer les agents sur les process d'identification et traitement des demandes des personnes concernant leurs données.\nRédiger une politique interne pour le déploiement du système d'IA.\nAteliers d'accompagnement pour pour chaque mise en service du système d'IA\n\n2. Déploiement progressif du SIA (certaines direction, projet, personnes)  \nDes phases de test en condition réelles en dehors du bac à sable (article 60 du RIA) et prévoir des REX sur ces tests \nDes bacs à sable pour la formation, l'essai et la validation du SIA  (article  57.5 du RIA)  \nL'utilisation de données personnelles est possible dans des conditions strictement définies par l'article 59 du RIA    \n\n",
+      "etapes": "Etape  : Place de l'humain dans l'usage du SIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/article/10/"
+    },
+    {
+      "id": 18,
+      "volet": "IA Act",
+      "question": "Des garanties de transparence sont-elles prévues ?",
+      "contexte": "L'article 13 du RIA (*) prévoit une obligation de transparence pour tout les SIA. Elle permet de comprendre le rôle et le fonctionnement de l'IA et d'informer l'utilisateur final qu'il utilise une IA.\n\nC'est la principale exigence en matière de SIA à risque limité.  ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Etablir une liste à jour de l'ensemble des cas qui vont nécessiter une mesure de transparence \n\nExplicitement informer l'utilisateur qui intéragit avec une IA et lui dire à quoi sert cette IA",
+      "info": "Tenir à jour un répertoire communicable de l'ensemble des SIA et les classifier selon leur niveau de risque.\n\nDistinguer la transparence et avec le droit à l'information du RGPD. (Cette autre mesure permet à toute personne concernée par un traitement de donnée personnelle d'être informée de ses droits). \n\n Doit d'accès aux documents administratifs prévu par l' article L. 311-3-1 du Code des relations entre le public et l'administration \n\nPrévoir pour l'utilisateur un message clair, lisible et dès le premier contact avec une IA lui indiquant \"vous intéragissez avec une IA\". \n\nPrévoir  un lien visible en savoir + qui détaille ce que va faire le SIA \"ce chatbot est conçu pour répondre à ... et vous orienter vers... ll ne remplace pas ... Il fonctionne avec  un ... qui analyse votre question et classe les réponses selon que... et est entraîné sur ...\" ",
+      "etapes": "Etape : Mesures organisationnelles pour une conformité au RIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/article/13/"
+    },
+    {
+      "id": 19,
+      "volet": "IA Act",
+      "question": "Un suivi de la conformité au Règlement IA est-il prévu ?",
+      "contexte": "La conformité est un processus continu qui s'adapte aux évolutions technologiques et réglementaires :\n→ Même si un SIA à haut risque fait l'objet d'une première démarche de mise en conformité, une seconde s'impose pour toute évolution importante « substencielle » du système conformément à l'article 43.4 du RIA (*)  ",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Système de gestion des risques \n\nInstaurer une gouvernance minimale\n\nDocumentation technique \n\nUtiliser des indicateurs clés (KPI)\n\nPrévoir des audits réguliers et une boucle de rétroaction pour assurer une amélioration continue",
+      "info": "Instaurer une gouvernance minimale en réévaluant périodiquement les risques : a. tous les ans, refaire un point sur l'AIPD, b. vérifier que les mesures recommandées sont toujours en place et efficaces c. une grille technique des mesures selon le type de modifications substantielles identifiées  (ex : usage détourné par un agent malveillant) d. Qualification et documentation de ce qu'implique une \"modification substancielle\"    \n\nFaire  une veille sur les avancées technologiques et menaces\n\nMettre à jour le système (patch de sécurité, nouvelles versions du modèle entraîné sur des données corrigées) \n\nInstitutionnaliser un cycle d'amélioration continue en matière de conformité, planifier, agir, vérifier, ajuster… pour que l'assistant intelligent reste un atout innovant et conforme.\n\nOrganiser des ateliers de travail collaboratifs : qui permettent des REX  : dont le but sera de trouver un langage commun à la conformité et de hiérarchiser les sujets à traiter selon la criticité des risques catégoriés\n\n\n",
+      "etapes": "Etape : Mesures organisationnelles pour une conformité au RIA ",
+      "lien": "https://artificialintelligenceact.eu/fr/section/3-2/"
+    },
+    {
+      "id": 20,
+      "volet": "IA Act",
+      "question": "L'ensemble des démarches administratives imposées par le RIA et nécessaires à la mise en conformité des SIA  ont-elles été réalisées ? ",
+      "contexte": "La section V du RIA (*) liste les documents à fournir afin de se mettre en conformité avec le RIA  (notamment lorsqu'il s'agit d'une IA à haut risque).\n\n",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Etapes structurantes : \n\nDéclaration de conformité\nCertificats\nMarquage CE\nEnregistrement dans la base de donnée de l'UE\nNotification des incidents graves \n\nFacultatif :  codes de bonnes conduite pour les SIA a risque limité ",
+      "info": "Pour les SIA à haut risque :\n\nDispositions (chapitre III section  5 « normes, évaluation de la conformité, certificats, enregistrement)\n\n\nArticle 44 RIA : Certificats\nSont rédigés dans une langue compréhensible    \nDurée de validité de 4 à 5 ans \nCertificat peut être retiré/révoqué si les exigences requises ne sont plus appliquées\n\nArticle 47 RIA : Déclaration de conformité de l'UE (système d'IA à haut risque)  \nSatisfait aux exigences énoncées à la section 2. \nLa déclaration UE de conformité contient les informations visées à l'annexe V \nEst traduite dans une langue aisément compréhensible\n\nArticle 48 RIA : Marquage CE ( systèmes d'IA à haut risque) \nprincipes généraux énoncés à l'article 30 du règlement (CE) n° 765/2008.  \nIndiqué de manière visible, lisible et indélébile\nSi une autorité certifiante est intervenue :  le marquage CE est suivi du numéro d'identification de l'organisme notifié responsable des procédures d'évaluation de la conformité visées à l'article 43.   \n\nArticle 49 RIA : enregistrement sur la base de donnée de l'UE  \n sa fiche descriptive du SIA\n sa fiche PIA \n infos de contact  \n\nDisposition Chapitre IX du RIA\n\nArticle 73 RIA : Notification des incidents graves (pour les IA à haut risque)\nEtablir le lien entre le SIA et l'incident (avoir déterminé ce  qui relève d'un incident grave)  \nDans les 15 jours suivant la découverte de l'incident\nPuis ils doivent au moins fournir un premier rapport même incomplet (faire les enquête nécessaire)\nCollaborer avec les autorités qui prendre une décision dans les 7 jours\n\nPour SIA  risque limité : L'ensemble des autres mesures nécessaires sont  prises : déclaration de conformité, traçabilité, transparence des systèmes d'IA, contrôle humain.",
+      "etapes": "Etape : Démarches administratives, éthiques et environnementales ",
+      "lien": "https://artificialintelligenceact.eu/fr/section/3-5/"
+    },
+    {
+      "id": 21,
+      "volet": "IA Act",
+      "question": "L'éthique fait-elle partie intégrante du SIA ",
+      "contexte": "Le chapitre 10 du RIA (*) prévoit la rédaction de lignes directrices et codes de conduite. \n\nL'éthique fait de l'IA un outil au service de l'humain et de l'intérêt général : \n1. Elle assure un usage légitime, transparent et responsable de l'intelligence artificielle. \n2. Elle assure le respect des droits fondamentaux l'équité des décisions \n3. Renforce la confiance du public et encadre l'action des agents.  \n4. Assure la souveraineté technologique de l'État et la maîtrise de sa transformation numérique.",
+      "oui": "Si oui, passer à la question suivante ",
+      "non": "Faire usage du système d'IA dans un unique but d'intérêt général (définir ce que l'on entend par intérêt général), et dont les bénéfices servent à la société\n\n Favoriser et promouvoir le respect des droits fondamentaux de la charte \n\nRappeler et mettre en oeuvre les 7 principes non contraignants pour une IA digne de confiance et éthique (considérant 27 du RIA)",
+      "info": "1.Apporter un bénéfice à la société : \nLe fonctionnement du SIA doit maximiser le bénéfice \nEtablir en amont des objectifs clairs et des indicateurs de performances pour la réalisation desdits objectifs\nUtiliser le SIA dans le cadre des missions de la DGFIP et répondre à une finalité d'intérêt général\n\n2. Faire intervenir l'ensemble des parties prenantes : administration universités, organisme de recherche, syndicats….\n\n3. Favoriser/faire apparaître  le respect de la charte des droits fondamentaux notamment : \nArt 8 sur la protection des données personnelles ;\nArt 21 sur le  droit à la non discrimination ;\nArticle 34 sur la sécurité sociale et aide sociale ;\nArt 41 sur le droit à une bonne administration.\n\n 4. Sept principes non contraignants pour une IA digne de confiance et éthique (considérant 27 du RIA) : \nl'intervention humaine et la surveillance\nla robustesse technique et la sécurité ;\nla protection de la vie privée ;\nle bien être sociétal et environnemental ;\nla transparence ;\nla diversité ;\nla non discrimination et l'équité.\n\n5. Alignement sur les objectifs de la stratégie nationale pour l'IA : \nPromouvoir une  IA de confiance dans le secteur public. \nIntégrer dès la phase de conception et par défaut, une conformité technique, juridique et sociétale",
+      "etapes": "Etape : Démarches administratives, éthiques et environnementales ",
+      "lien": "https://artificialintelligenceact.eu/fr/chapter/10/"
+    },
+    {
+      "id": 22,
+      "volet": "IA Act",
+      "question": "Un cadre de réflexion sur une IA respectueuse de l'environnement a t'il été pensé et construit ? ",
+      "contexte": "Le chapitre 10 du RIA (*) prévoit des lignes directrices et codes de conduites\n\nPour ce faire il faut aussi intégrer des réflexions sur l'environnement (notamment à la sobriété énergétique)",
+      "oui": "Si oui, passer à la synthèse du questionnaire",
+      "non": "Soutenabilité  des centres de stockage de données  et des nfrastructures de calcul\n\nIdentifier des métriques liées à l'empreinte environnementale\n\n",
+      "info": "1. La soutenabilité  au niveau des centres de stockage de données ; \n\n 2. Au niveau des infrastructures de calcul et lors de l'entraînement des modèles ;  \n\n3. Pour le calcul des métriques liées à l'empreinte environnementale (comme la consommation énergétique) de la conception et de l'utilisation des systèmes d'IA.   \n\n4. Transparence dans l'accessibilité des métriques aux utilisateurs en cas de besoin.  ",
+      "etapes": "Etape : Démarches administratives, éthiques et environnementales ",
+      "lien": "https://artificialintelligenceact.eu/fr/chapter/10/"
+    },
+    {
+      "id": 23,
+      "volet": "AFNOR SPEC / GSEN",
+      "question": "Des mesures sont-elles prises afin de limiter les impacts environnementaux eu égard à un usage abusif et une finalité disproportionnée du service ?",
+      "contexte": "Dans le cadre du cycle de vie de la donnée, la notion de frugalité de l'IA doit s'interpréter \"by design\" afin de limiter les impacts environnementaux. \n\n→ A ce titre, il convient en amont de donner un cadre au projet et de définir l'expression de besoin.",
+      "oui": "Si oui, passer à la question suivante",
+      "non": "1. Vérifier l'utilité du service vs les bénéfices attendus, puis dresser un arbre des conséquences par impacts directs et indirects sur l'environnement par finalités et sous finalités \n\n2. Vérifier/démontrer qu'aucune autre solution équivalente n'existe pas déjà\n\n3. Vérifier la durabilité du service sur le long terme (le besoin ne devant pas être éphémère)\n\n4. Encadrer la collecte des données au regard des finalitées visées",
+      "info": "1. Documenter l'utilité d'un service :\n- L'IA doit pouvoir servir l'intérêt général ou rentrer dans le champ d'une politique publique. \n- L'utilité du service peut également s'évaluer selon les référentiels suivants   :  Les 17 objectifs de développement durable (ODD) de l'ONU ;  Les 9 limites planétaires ;  la Taxonomie européenne sur les activités vertes ;  La directive CSRD ; la norme ISO 26000 (non certifiable) ; Global Reporting Initiative.\n- Lister les persona ciblées par le service et s'ils ont vraiment besoin du service visé\n- Démontrer que la valeur ajoutée du service se justifie au regard des moyens déployés : en quoi le service peut apporter un gain de temps pour les agents, une fluidité des échanges, un service  plus accesible....\n\n2. L'objectif est d' éviter les duplicatas d'applicatifs :  \n- Démontrer que cette autre solution ne permet pas d'obtenir le même résultat. \n- Etudier le marché et de le comparer avec son expression de besoin : Benchmark des outils existants\n- Si une solution alternative est identifiée, et qu'elle n implique pas forcément de l'IA : elle doit être privilégiée\n\n3. Durabilité du service  : \n- Procéder à un calcul qui mesure l'impact environnemental du dévelopopement du service au regard de l'investissement technique qui aura été fourni\n- Eviter que les efforts soient disproportionnés si le service n'a pas vocation à perdurer\n\n4. Limiter la collecte de nouvelles données\n-  Si les finalités du cas d'usage ne le justifient pas ;\n- Vérifier la non obsolescence des données ou si leur qualité ne peut pas être améliorée sans nouvelle données",
+      "etapes": "Etape : Démarche de mise en conformité environnementale",
+      "lien": "https://agirpourlatransition.ademe.fr/particuliers/conso/conso-responsable/connaissez-vous-votre-empreinte-climat"
+    },
+    {
+      "id": 24,
+      "volet": "AFNOR SPEC / GSEN",
+      "question": "Des mesures sont-elles prises afin de maîtriser/encadrer l'environnement de test (réentraînement, si besoin)?",
+      "contexte": "L'objectif est ici d'évaluer en phase de test la performance et la qualité des résultats attendus : \n\n→ In fine il s'agit d'éviter des déploiements inefficaces et des mises à jour trop régulières, côuteuses pour l'environnement",
+      "oui": "Si oui, passer à la question suivante",
+      "non": "1. En phase de test,  il conviendra d'optimiser au plus l'IA en y intégrant des critères liés à : \n- Un pourcentage de précision ;\n- Le temps de réponse de l'IA ;\n- Des résultats variés et surtout justifiés ;\n- L'intégration de certains critères d'acception minimal d'un résultat attendu\n\n2. Sur le réentraînement il conviendra de déterminer : sa  fréquence et  d'évaluer sa pertinence avec des critères objectifs",
+      "info": "1. Ces KPI (critères de précision, temps de réspinse...) doivent s'apprécier selon : \n- La précision, attendue, \n- La généralisation ou personnalisation d'un résultat\n- L'efficacité et L'interprétabilité du résultat attendu (lasolution doit-être claire et compréhensible par l'agent)\n- Evolutivité du résultat si réentraîné \n\n2. Pour évaluer ces entraînements/tests dans une déclaration d'éco-conception qui DEVRA reprendre : \n- Définir des maîtrises de consommation de ressources CPU , GPU et TPU avec des métriques de qualité. \n- Dès la conception définir les paramètres de déclanchement d'un réentraînement et donc démontrer que la prolongation des phases de tests ou réentraînement est nécessaire au regard de l'études des KPI (ci-dessus) ;\n- Privilégier des modèles déjà entraînés ; \n- Si possible remplacer les entraînements sur des réseaux de deep learning via des techniques de regression ou de réseaux de neurones simples.",
+      "etapes": "Etape : Démarche de mise en conformité environnementale",
+      "lien": "https://agirpourlatransition.ademe.fr/particuliers/conso/conso-responsable/connaissez-vous-votre-empreinte-climat"
+    },
+    {
+      "id": 25,
+      "volet": "AFNOR SPEC / GSEN",
+      "question": "Une sensibilisation des agents aux enjeux environementaux est-elle prévue ?",
+      "contexte": "Il faut pouvoir se familiariser aux enjeux environnementaux sur la base d'un socle commun de connaissance et partagé à l'échelle de la direction.",
+      "oui": "Si oui, questionnaire terminé. Passage au bilan de conformité",
+      "non": "1. Définir des RACI pour déterminer les personnes impliquées dans la démarche environnementale  à chaque étape du cycle de vie du service \n\n2. Définir un tronc commun de formation qui reprend une partie I sur ce qui  influence négativement les performances environnementales une partie II relative à la  stratégie à adopter pour réduire son emprunte    \n\n3. Entreprendre une sensibilisation relative à l'impact environnemental d'une fabrication excessive d'équipement trop coûteux",
+      "info": "1. Cibler les formations : \n- Selon les acteurs impliqués et leurs besoins métiers. Mise en œuvre en commençant par les acteurs (chefs\nde projets IT, architectes d'entreprises, data scientists...)\n- Une formation personnalisée selon les acquis et le niveau de progression  \n\n2. Les connaissances de ce tronc commun doivent : \n- Décidée collégialement et selon les orientations ministérielles\n-  S'opérer via  des sessions de formations dégradées selon les métiers\n- Se diffuser via la rédaction de \"bonnes pratiques\", chartes...\n- Mettre en place un prix par an (récompense) de l'équipe, pôle... avec l'empreinte la moins élévée\n\n3. Pour le matériel sensibiliser les acteurs sur les points suivants : \n- Afin d'éviter le rachat de matériel inutile  : Vérifier si certains équipements peuvent être mutualisés, \n- Prévoir un échalonnage des calculs des machines notamment le week-end et la nuit (afin d'optimiser la puissance de calcul d'une machine). \n- Vérifier que l'achat d'une machine servira sur la durée et  pas que sur un seul projet. \n- Choisir le pays avec une empreinte carbonne la plus basse possible : pour le stockage des données. \n- Vérifier s'il est plus opprtun de stocker les données où de réaliser des téléchargements systématiques.",
+      "etapes": "Etape : Démarche de mise en conformité environnementale",
+      "lien": "https://agirpourlatransition.ademe.fr/particuliers/conso/conso-responsable/connaissez-vous-votre-empreinte-climat"
+    }
+  ],
+  "ia_act_first": {
+    "id": 13,
+    "volet": "IA Act",
+    "question": "Le Système d'IA n'est pas considéré « à haut risque » ? ",
+    "contexte": "L'article 6 du RIA définit les Systèmes d'IA à haut risque (SIA à haut risque) et précise les critères (portée sur la santé, sécurité ou droits fondamentaux) avec des listes d'usages en annexes, ainsi que les obligations associées pour les opérateurs et la conformité à anticiper (lignes directrices et responsabilités tout au long de la chaîne de valeur).\n",
+    "oui": "Si oui, passer à la question suivante ",
+    "non": "La catégorisation \"IA à haut risque\" impose des exigences de conformité plus strictes et une gestion des risques plus rigoureuse pour garantir la sécurité, la confidentialité et la protection des données personnelles des personnes physiques.\n",
+    "info": "1. Exigences de conformité renforcées : Les systèmes d'IA à haut risque sont soumis à des exigences de conformité plus strictes, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n2. Analyse d'impact sur les droits fondamentaux : Les déployeurs de systèmes d'IA à haut risque doivent effectuer une analyse d'impact sur les droits fondamentaux, conformément à l'article 27 du règlement, pour évaluer les risques potentiels pour les droits fondamentaux des personnes physiques. \n3. Gestion des risques : Les systèmes d'IA à haut risque doivent être soumis à une gestion des risques plus rigoureuse, incluant l'identification, l'évaluation et la mitigation des risques potentiels pour la santé, la sécurité et les droits fondamentaux des personnes physiques. \n4. Essais et tests : Les systèmes d'IA à haut risque doivent être soumis à des essais et des tests plus rigoureux pour garantir leur conformité aux exigences de sécurité et de performance. \n5. Surveillance et maintenance : Les systèmes d'IA à haut risque doivent être soumis à une surveillance et une maintenance continues pour garantir leur conformité aux exigences de sécurité et de performance. \n6. Formation et sensibilisation : Les déployeurs de systèmes d'IA à haut risque doivent fournir une formation et une sensibilisation appropriées aux utilisateurs et aux personnes impliquées dans la mise en œuvre et la maintenance du système. \n7. Documentation et traçabilité : Les systèmes d'IA à haut risque doivent être documentés de manière appropriée, incluant la traçabilité des décisions et des actions prises par le système. \n8. Conformité aux normes et réglementations : Les systèmes d'IA à haut risque doivent être conformes aux normes et réglementations applicables, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n9. Évaluation et certification : Les systèmes d'IA à haut risque peuvent être soumis à des évaluations et des certifications par des organismes tiers pour garantir leur conformité aux exigences de sécurité et de performance. \n10. Responsabilité et accountability : Les déployeurs de systèmes d'IA à haut risque sont responsables de la conformité de leur système et doivent être en mesure de démontrer leur conformité aux exigences de sécurité et de performance. \n\n",
+    "etapes": "Etape  : Définition du SIA ",
+    "lien": "https://artificialintelligenceact.eu/fr/section/3-1/"
+  }
+};
+
+    let QUESTIONS = null;
+    let isQuestionsLoaded = false;
+
+    const state = {
+      ident: { nom:'', prenom:'', projet:'', bureau:'', email:'', phase:'' },
+      answers: {}, 
+      notes: {}, 
+      sequence: [], 
+      current: 0, 
+      elim: null
+    };
+
+    const stepContainer = document.getElementById('stepContainer');
+    const synthContainer = document.getElementById('synthContainer');
+    const mainContent = document.getElementById('main-content');
+    const progressCard = document.getElementById('progressCard');
+    const progressBar = document.getElementById('progressBar');
+    const stepProgressFill = document.getElementById('stepProgressFill');
+    const stepLabel = document.getElementById('stepLabel');
+    const pctLabel = document.getElementById('pctLabel');
+    const stepInfo = document.getElementById('stepInfo');
+
+    function showError(message) {
+      const errorAlert = document.getElementById('error-alert');
+      const errorMessage = document.getElementById('error-message');
+      if (!errorAlert || !errorMessage) return;
+      
+      errorMessage.textContent = message;
+      errorAlert.classList.remove('hidden');
+      setTimeout(() => errorAlert.classList.add('hidden'), 8000);
+    }
+
+    function showSuccess(message) {
+      const successAlert = document.getElementById('success-alert');
+      const successMessage = document.getElementById('success-message');
+      if (!successAlert || !successMessage) return;
+      
+      successMessage.textContent = message;
+      successAlert.classList.remove('hidden');
+      setTimeout(() => successAlert.classList.add('hidden'), 5000);
+    }
+
+
+    function isNonEmpty(s) { 
+      return !!(s && String(s).trim().length > 0); 
+    }
+
+    // Fonction pour extraire le premier lien valide (améliorée)
+    function getFirstLink(linksString) {
+      if (!isNonEmpty(linksString)) return null;
+      
+      const links = linksString.split(/[,\n;]/);
+      for (const link of links) {
+        const trimmedLink = link.trim();
+        if (trimmedLink) {
+          // Accepter les liens qui commencent par http, https, www, ou ajouter https par défaut
+          if (trimmedLink.startsWith('http://') || trimmedLink.startsWith('https://')) {
+            return trimmedLink;
+          } else if (trimmedLink.startsWith('www.')) {
+            return 'https://' + trimmedLink;
+          } else if (trimmedLink.includes('.') && !trimmedLink.includes(' ')) {
+            // Si ça ressemble à un domaine, ajouter https://
+            return 'https://' + trimmedLink;
+          }
+        }
+      }
+      return null;
+    }
+
+    function initializeQuestionnaire() {
+      QUESTIONS = QUESTIONS_DATA;
+      isQuestionsLoaded = true;
+      
+      buildSequence();
+      loadState();
+      renderStep();
+      
+      // Attacher l'event listener pour le bouton checklist
+      document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'btn-checklist') {
+          console.log('Bouton checklist cliqué');
+          showChecklist();
+        }
+      });
+    }
+
+
+    // ===== SYSTÈME DE MESURE D'AUDIENCE =====
+    // Configuration : Vous pouvez utiliser JSONBin.io (gratuit) ou un autre service
+    // Pour JSONBin.io : Créez un compte gratuit sur https://jsonbin.io, puis créez un bin et récupérez la clé
+    const AUDIENCE_CONFIG = {
+      // Option 1 : JSONBin.io (remplacez par votre clé API et bin ID)
+      // Pour activer : Créez un compte gratuit sur https://jsonbin.io
+      // 1. Créez un nouveau bin (POST request ou via l'interface)
+      // 2. Récupérez votre clé API (Master Key) et le bin ID
+      // 3. Remplissez les champs ci-dessous
+      useJsonBin: false, // Mettre à true si vous avez configuré JSONBin.io
+      jsonBinApiKey: '', // Exemple: '$2b$10$...' (votre Master Key JSONBin.io)
+      jsonBinBinId: '', // Exemple: '507f1f77bcf86cd799439011'
+      jsonBinUrl: 'https://api.jsonbin.io/v3/b', // URL de base JSONBin.io
+      
+      // Option 2 : localStorage (fonctionne par défaut, statistiques locales uniquement)
+      localStorageKey: 'questionnaire_audience_stats'
+    };
+
+    // Générer un ID unique pour ce visiteur
+    function getVisitorId() {
+      let visitorId = localStorage.getItem('questionnaire_visitor_id');
+      if (!visitorId) {
+        visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('questionnaire_visitor_id', visitorId);
+      }
+      return visitorId;
+    }
+
+    // Vérifier si c'est une nouvelle visite (dernière visite il y a plus de 30 minutes)
+    function isNewVisit() {
+      const lastVisit = localStorage.getItem('questionnaire_last_visit');
+      if (!lastVisit) return true;
+      const timeDiff = Date.now() - parseInt(lastVisit);
+      return timeDiff > 30 * 60 * 1000; // 30 minutes
+    }
+
+    // Sauvegarder les statistiques dans localStorage (fallback)
+    function saveStatsLocal(stats) {
+      try {
+        localStorage.setItem(AUDIENCE_CONFIG.localStorageKey, JSON.stringify(stats));
+        return true;
+      } catch (e) {
+        console.warn('Erreur sauvegarde localStorage:', e);
+        return false;
+      }
+    }
+
+    // Charger les statistiques depuis localStorage
+    function loadStatsLocal() {
+      try {
+        const stored = localStorage.getItem(AUDIENCE_CONFIG.localStorageKey);
+        return stored ? JSON.parse(stored) : { visitors: 0, completed: 0 };
+      } catch (e) {
+        return { visitors: 0, completed: 0 };
+      }
+    }
+
+    // Sauvegarder les statistiques sur JSONBin.io
+    async function saveStatsJsonBin(stats) {
+      if (!AUDIENCE_CONFIG.useJsonBin || !AUDIENCE_CONFIG.jsonBinApiKey || !AUDIENCE_CONFIG.jsonBinBinId) {
+        return false;
+      }
+
+      try {
+        const response = await fetch(`${AUDIENCE_CONFIG.jsonBinUrl}/${AUDIENCE_CONFIG.jsonBinBinId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': AUDIENCE_CONFIG.jsonBinApiKey,
+            'X-Bin-Name': 'Questionnaire IA - Audience Stats'
+          },
+          body: JSON.stringify(stats)
+        });
+
+        if (response.ok) {
+          return true;
+        } else {
+          console.warn('Erreur sauvegarde JSONBin.io:', await response.text());
+          return false;
+        }
+      } catch (e) {
+        console.warn('Erreur réseau JSONBin.io:', e);
+        return false;
+      }
+    }
+
+    // Charger les statistiques depuis JSONBin.io
+    async function loadStatsJsonBin() {
+      if (!AUDIENCE_CONFIG.useJsonBin || !AUDIENCE_CONFIG.jsonBinApiKey || !AUDIENCE_CONFIG.jsonBinBinId) {
+        return null;
+      }
+
+      try {
+        const response = await fetch(`${AUDIENCE_CONFIG.jsonBinUrl}/${AUDIENCE_CONFIG.jsonBinBinId}/latest`, {
+          headers: {
+            'X-Master-Key': AUDIENCE_CONFIG.jsonBinApiKey
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          return data.record || { visitors: 0, completed: 0 };
+        } else {
+          return null;
+        }
+      } catch (e) {
+        console.warn('Erreur chargement JSONBin.io:', e);
+        return null;
+      }
+    }
+
+    // Incrémenter le compteur de visiteurs
+    async function trackVisitor() {
+      if (!isNewVisit()) {
+        return; // Pas une nouvelle visite
+      }
+
+      localStorage.setItem('questionnaire_last_visit', Date.now().toString());
+
+      let stats;
+      if (AUDIENCE_CONFIG.useJsonBin && AUDIENCE_CONFIG.jsonBinApiKey && AUDIENCE_CONFIG.jsonBinBinId) {
+        stats = await loadStatsJsonBin();
+        if (!stats) {
+          stats = loadStatsLocal();
+        }
+      } else {
+        stats = loadStatsLocal();
+      }
+
+      stats.visitors = (stats.visitors || 0) + 1;
+      stats.lastUpdate = Date.now();
+
+      // Sauvegarder
+      if (AUDIENCE_CONFIG.useJsonBin && AUDIENCE_CONFIG.jsonBinApiKey && AUDIENCE_CONFIG.jsonBinBinId) {
+        await saveStatsJsonBin(stats);
+      }
+      saveStatsLocal(stats);
+
+      updateStatsDisplay(stats);
+    }
+
+    // Incrémenter le compteur de parcours terminés
+    async function trackCompleted() {
+      let stats;
+      if (AUDIENCE_CONFIG.useJsonBin && AUDIENCE_CONFIG.jsonBinApiKey && AUDIENCE_CONFIG.jsonBinBinId) {
+        stats = await loadStatsJsonBin();
+        if (!stats) {
+          stats = loadStatsLocal();
+        }
+      } else {
+        stats = loadStatsLocal();
+      }
+
+      stats.completed = (stats.completed || 0) + 1;
+      stats.lastUpdate = Date.now();
+
+      // Sauvegarder
+      if (AUDIENCE_CONFIG.useJsonBin && AUDIENCE_CONFIG.jsonBinApiKey && AUDIENCE_CONFIG.jsonBinBinId) {
+        await saveStatsJsonBin(stats);
+      }
+      saveStatsLocal(stats);
+
+      updateStatsDisplay(stats);
+    }
+
+    // Mettre à jour l'affichage des statistiques
+    function updateStatsDisplay(stats) {
+      const visitorsEl = document.getElementById('visitors-count');
+      const completedEl = document.getElementById('completed-count');
+      const statsContainer = document.getElementById('audience-stats');
+
+      if (visitorsEl) visitorsEl.textContent = (stats.visitors || 0).toLocaleString('fr-FR');
+      if (completedEl) completedEl.textContent = (stats.completed || 0).toLocaleString('fr-FR');
+      if (statsContainer && (stats.visitors > 0 || stats.completed > 0)) {
+        statsContainer.style.display = 'block';
+      }
+    }
+
+    // Charger et afficher les statistiques au chargement de la page
+    async function loadAndDisplayStats() {
+      let stats;
+      if (AUDIENCE_CONFIG.useJsonBin && AUDIENCE_CONFIG.jsonBinApiKey && AUDIENCE_CONFIG.jsonBinBinId) {
+        stats = await loadStatsJsonBin();
+        if (!stats) {
+          stats = loadStatsLocal();
+        }
+      } else {
+        stats = loadStatsLocal();
+      }
+
+      updateStatsDisplay(stats);
+    }
+    // ===== FIN SYSTÈME DE MESURE D'AUDIENCE =====
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Questionnaire de conformité IA prêt');
+      
+      // Initialiser le tracking d'audience
+      loadAndDisplayStats();
+      trackVisitor();
+      
+      initializeQuestionnaire();
+    });
+
+    const STEP_IDENT = { type:'ident' };
+
+    function buildSequence() {
+      if (!QUESTIONS) return;
+      
+      const seq = [STEP_IDENT];
+      
+      if (QUESTIONS.entree && isNonEmpty(QUESTIONS.entree.question)) {
+        seq.push({ type:'question', q: QUESTIONS.entree });
+      }
+      
+      for (const q of QUESTIONS.others) {
+        if (isNonEmpty(q.question)) {
+          seq.push({ type:'question', q: q });
+        }
+      }
+      
+      state.sequence = seq;
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem('questionnaire_state', JSON.stringify({
+          ident: state.ident,
+          answers: state.answers,
+          notes: state.notes,
+          current: state.current
+        }));
+      } catch (e) {
+        console.warn('Impossible de sauvegarder dans localStorage:', e);
+      }
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('questionnaire_state');
+        if (saved) {
+          const data = JSON.parse(saved);
+          state.ident = data.ident || state.ident;
+          state.answers = data.answers || state.answers;
+          state.notes = data.notes || state.notes;
+          state.current = data.current || state.current;
+        }
+      } catch (e) {
+        console.warn('Impossible de charger depuis localStorage:', e);
+      }
+    }
+
+    function activeSequence() {
+      if (!QUESTIONS) return [];
+      
+      const entreeId = QUESTIONS.entree ? QUESTIONS.entree.id : null;
+      const entreeAns = (entreeId != null) ? state.answers[entreeId] : null;
+      
+      const includeRGPD = (entreeAns === 'Non' || entreeAns === 'N/A');
+      
+      const out = [];
+      
+      for (const step of state.sequence) {
+        if (step.type !== 'question') { 
+          out.push(step); 
+          continue; 
+        }
+        
+        const q = step.q;
+        if (!q) continue;
+        
+        if (entreeId != null && q.id === entreeId) { 
+          out.push(step); 
+          continue; 
+        }
+        
+        if (q.volet === 'RGPD' && !includeRGPD) continue;
+        
+        if (q.volet === 'Srtucturant' && q.id === 12) {
+          out.push(step);
+          continue;
+        }
+        
+        if (q.volet === 'IA Act') {
+          out.push(step);
+          continue;
+        }
+        
+        out.push(step);
+      }
+      return out;
+    }
+
+    function renderProgress() {
+      if (!isQuestionsLoaded) return;
+      
+      const act = activeSequence();
+      const idx = Math.min(state.current + 1, act.length);
+      const pct = Math.round((state.current) / Math.max(1, act.length) * 100);
+      
+      if (stepLabel) stepLabel.textContent = `Étape ${idx} / ${act.length}`;
+      if (pctLabel) pctLabel.textContent = `${pct}%`;
+      
+      // Mettre à jour les deux barres de progression avec la même valeur
+      if (progressBar) {
+        progressBar.style.width = `${pct}%`;
+        progressBar.setAttribute('aria-valuenow', pct);
+      }
+      if (stepProgressFill) stepProgressFill.style.width = `${pct}%`;
+      
+      // Afficher les informations d'étapes
+      const currentStep = act[state.current];
+      if (stepInfo) {
+        if (currentStep && currentStep.type === 'question' && currentStep.q && currentStep.q.etapes) {
+          stepInfo.textContent = currentStep.q.etapes;
+          stepInfo.classList.remove('hidden');
+        } else {
+          stepInfo.classList.add('hidden');
+        }
+      }
+    }
+
+    function renderStep() {
+      if (!isQuestionsLoaded) return;
+      
+      // Masquer la checklist quand on navigue dans les questions
+      hideChecklist();
+      
+      const act = activeSequence();
+      if (state.current >= act.length || state.elim) {
+        if (progressCard) progressCard.classList.add('hidden');
+        renderSynthesis();
+        if (synthContainer) synthContainer.classList.remove('hidden');
+        if (stepContainer) stepContainer.classList.add('hidden');
+        window.scrollTo({ top:0, behavior:'smooth' });
+        return;
+      }
+      
+      if (stepContainer) stepContainer.classList.remove('hidden');
+      if (progressCard) progressCard.classList.remove('hidden');
+      if (synthContainer) synthContainer.classList.add('hidden');
+
+      const step = act[state.current];
+      if (stepContainer) stepContainer.innerHTML = '';
+      
+      if (step.type === 'ident') {
+        renderIdent();
+      } else if (step.type === 'question') {
+        renderQuestion(step.q);
+      }
+      
+      renderProgress();
+    }
+
+    function renderIdent() {
+      stepContainer.innerHTML = `
+        <h2 class="fr-h4 fr-mb-4w" tabindex="-1">Informations de contact & contexte projet</h2>
+        
+        <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="fr-col-12 fr-col-md-6">
+            <div class="fr-input-group">
+              <label class="fr-label" for="f_nom">Nom *</label>
+              <input class="fr-input" type="text" id="f_nom" required />
+            </div>
+          </div>
+          <div class="fr-col-12 fr-col-md-6">
+            <div class="fr-input-group">
+              <label class="fr-label" for="f_prenom">Prénom *</label>
+              <input class="fr-input" type="text" id="f_prenom" required />
+            </div>
+          </div>
+        </div>
+        
+        <div class="fr-input-group">
+          <label class="fr-label" for="f_projet">Nom du projet *</label>
+          <input class="fr-input" type="text" id="f_projet" required />
+        </div>
+        
+        <div class="fr-input-group">
+          <label class="fr-label" for="f_bureau">Bureau / Entité</label>
+          <input class="fr-input" type="text" id="f_bureau" />
+        </div>
+        
+        <div class="fr-input-group">
+          <label class="fr-label" for="f_email">Email *</label>
+          <input class="fr-input" type="email" id="f_email" required />
+        </div>
+        
+        <div class="fr-select-group">
+          <label class="fr-label" for="f_phase">Phase du projet *</label>
+          <select class="fr-select" id="f_phase" required>
+            <option value="">— Sélectionner —</option>
+            <option value="Cadrage / Conception">Cadrage / Conception</option>
+            <option value="Développement / Intégration">Développement / Intégration</option>
+            <option value="Test / Validation">Test / Validation</option>
+            <option value="Mise en production">Mise en production</option>
+            <option value="Exploitation / Amélioration">Exploitation / Amélioration</option>
+          </select>
+        </div>
+        
+        <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w fr-no-print">
+          <div class="fr-col-auto">
+            <button class="fr-btn fr-btn--tertiary" id="btn-reset">
+              <span class="fr-icon-refresh-line fr-mr-1v" aria-hidden="true"></span>
+              Réinitialiser
+            </button>
+          </div>
+          <div class="fr-col"></div>
+          <div class="fr-col-auto">
+            <button class="fr-btn" id="btn-next">Suivant</button>
+          </div>
+        </div>
+      `;
+
+      // Remplir les valeurs sauvegardées
+      document.getElementById('f_nom').value = state.ident.nom;
+      document.getElementById('f_prenom').value = state.ident.prenom;
+      document.getElementById('f_projet').value = state.ident.projet;
+      document.getElementById('f_bureau').value = state.ident.bureau;
+      document.getElementById('f_email').value = state.ident.email;
+      document.getElementById('f_phase').value = state.ident.phase;
+
+      document.getElementById('btn-next')?.addEventListener('click', () => {
+        const nom = document.getElementById('f_nom')?.value?.trim();
+        const prenom = document.getElementById('f_prenom')?.value?.trim();
+        const projet = document.getElementById('f_projet')?.value?.trim();
+        const email = document.getElementById('f_email')?.value?.trim();
+        const phase = document.getElementById('f_phase')?.value;
+        
+        if (!nom || !prenom || !projet || !email || !phase) {
+          showError('Veuillez remplir tous les champs obligatoires (*).');
+          return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError('Veuillez saisir une adresse email valide.');
+          return;
+        }
+        
+        state.ident = {
+          nom: nom,
+          prenom: prenom,
+          projet: projet,
+          bureau: document.getElementById('f_bureau')?.value?.trim() || '',
+          email: email,
+          phase: phase
+        };
+        
+        saveState();
+        state.current++;
+        renderStep();
+      });
+      
+      document.getElementById('btn-reset')?.addEventListener('click', () => { 
+        resetAll(); 
+      });
+    }
+
+    function renderQuestion(q) {
+      const keys = ['volet','question','contexte','non','info'];
+      for (const k of keys) {
+        if (typeof q[k] === 'string' && q[k].trim().toLowerCase() === 'nan') {
+          q[k] = '';
+        }
+      }
+      
+      let contextHtml = '';
+      let linkHtml = '';
+      
+      // Gérer le lien indépendamment du contexte
+      if (isNonEmpty(q.lien)) {
+        const firstLink = getFirstLink(q.lien);
+        
+        if (firstLink) {
+          linkHtml = `
+            <div class="fr-text--right fr-mb-4w">
+              <a href="${escapeHtml(firstLink)}" target="_blank" rel="noopener" class="link-btn" title="Ouvrir le lien de référence: ${escapeHtml(firstLink)}">?</a>
+            </div>`;
+        }
+      }
+      
+      // Gérer le contexte
+      if (isNonEmpty(q.contexte)) {
+        contextHtml = `
+          <div class="context-wrapper">
+            <p class="fr-text--sm fr-mb-4w">${escapeHtml(q.contexte).replace(/\n/g,'<br>')}</p>
+          </div>`;
+      }
+
+      stepContainer.innerHTML = `
+        <div class="question-container">
+          <h2 class="fr-h5 fr-mb-2w" tabindex="-1">
+            <span class="fr-badge fr-badge--sm fr-mr-2v">${q.volet||'—'}</span><br>
+            ${escapeHtml(q.question)}
+          </h2>
+          
+          ${contextHtml}
+          
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mt-4w">
+            <div class="fr-col">
+              <ul class="fr-btns-group fr-btns-group--inline-md fr-no-print">
+                <li>
+                  <button class="fr-btn answer-yes">Oui</button>
+                </li>
+                <li>
+                  <button class="fr-btn fr-btn--secondary answer-no">Non</button>
+                </li>
+                <li>
+                  <button class="fr-btn fr-btn--tertiary answer-na">Je ne sais pas</button>
+                </li>
+              </ul>
+            </div>
+            <div class="fr-col-auto">
+              ${linkHtml ? linkHtml.replace('<div class="fr-text--right fr-mb-4w">', '<div class="fr-text--right">').replace('</div>', '</div>') : ''}
+            </div>
+          </div>
+          
+          <div id="na-section-${q.id}" class="fr-input-group fr-mt-4w hidden">
+            <label class="fr-label" for="na-textarea-${q.id}">Merci de préciser :</label>
+            <textarea class="fr-input" id="na-textarea-${q.id}" rows="4" placeholder="Justification / contexte...">${state.notes[q.id]||''}</textarea>
+            <ul class="fr-btns-group fr-btns-group--inline-md fr-mt-2w">
+              <li>
+                <button class="fr-btn fr-btn--tertiary" id="btn-na-cancel-${q.id}">Annuler</button>
+              </li>
+              <li>
+                <button class="fr-btn" id="btn-na-validate-${q.id}">Valider</button>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="fr-grid-row fr-grid-row--gutters fr-mt-4w fr-no-print">
+            <div class="fr-col-auto">
+              ${state.current > 0 ? '<button class="fr-btn fr-btn--tertiary-no-outline fr-icon-arrow-left-line fr-btn--icon-left" id="btn-prev">Précédent</button>' : ''}
+            </div>
+            <div class="fr-col"></div>
+            <div class="fr-col-auto">
+              <button class="fr-btn fr-btn--tertiary" id="btn-reset-q">
+                <span class="fr-icon-refresh-line fr-mr-1v" aria-hidden="true"></span>
+                Réinitialiser
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Event listeners
+      stepContainer.querySelector('.answer-yes')?.addEventListener('click', () => { 
+        recordAnswer(q.id, 'Oui'); 
+        checkElimAndNext(q, 'Oui'); 
+      });
+      
+      stepContainer.querySelector('.answer-no')?.addEventListener('click', () => { 
+        recordAnswer(q.id, 'Non'); 
+        checkElimAndNext(q, 'Non'); 
+      });
+      
+      stepContainer.querySelector('.answer-na')?.addEventListener('click', () => { 
+        const naSection = document.getElementById('na-section-' + q.id);
+        const naTextarea = document.getElementById('na-textarea-' + q.id);
+        if (naSection) naSection.classList.remove('hidden');
+        if (naTextarea) naTextarea.focus();
+      });
+
+      const naCancelBtn = document.getElementById('btn-na-cancel-' + q.id);
+      if (naCancelBtn) {
+        naCancelBtn.addEventListener('click', () => {
+          const naSection = document.getElementById('na-section-' + q.id);
+          if (naSection) naSection.classList.add('hidden');
+        });
+      }
+
+      const naValidateBtn = document.getElementById('btn-na-validate-' + q.id);
+      if (naValidateBtn) {
+        naValidateBtn.addEventListener('click', () => {
+          const naTextarea = document.getElementById('na-textarea-' + q.id);
+          if (naTextarea) state.notes[q.id] = naTextarea.value.trim();
+          recordAnswer(q.id, 'N/A');
+          checkElimAndNext(q, 'N/A');
+        });
+      }
+
+      if (state.answers[q.id] === 'N/A') {
+        const naSection = document.getElementById('na-section-' + q.id);
+        if (naSection) naSection.classList.remove('hidden');
+      }
+
+      const prevBtn = document.getElementById('btn-prev');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => { 
+          prevStep(); 
+        });
+      }
+
+      const resetBtn = document.getElementById('btn-reset-q');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => { 
+          resetAll(); 
+        });
+      }
+    }
+
+    function recordAnswer(id, val) {
+      state.answers[id] = val;
+      if (val !== 'N/A') delete state.notes[id];
+      saveState();
+    }
+
+    function checkElimAndNext(q, val) {
+      if (!QUESTIONS) return;
+      
+      const isElimTarget = (q.volet === 'Srtucturant' && q.id !== 0);
+      const isBlocking = (val === 'Non' || val === 'N/A');
+      
+      if (isElimTarget && isBlocking) {
+        state.elim = { qId: q.id, index: state.current };
+        renderSynthesis();
+        if (synthContainer) synthContainer.classList.remove('hidden');
+        if (stepContainer) stepContainer.classList.add('hidden');
+        if (progressCard) progressCard.classList.add('hidden');
+        window.scrollTo({ top:0, behavior:'smooth' });
+      } else {
+        nextStep();
+      }
+    }
+
+    function nextStep() { 
+      state.current++; 
+      saveState();
+      renderStep(); 
+    }
+
+    function prevStep() { 
+      state.current = Math.max(0, state.current-1); 
+      saveState();
+      hideChecklist(); // Masquer la checklist quand on revient en arrière
+      renderStep(); 
+    }
+
+    function escapeHtml(str) {
+      return (str||'')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+    }
+
+    function resetAll() {
+      if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes vos réponses ?')) {
+        state.ident = { nom:'', prenom:'', projet:'', bureau:'', email:'', phase:'' };
+        state.answers = {};
+        state.notes = {};
+        state.current = 0;
+        state.elim = null;
+        
+        try {
+          localStorage.removeItem('questionnaire_state');
+        } catch (e) {
+          console.warn('Impossible d\'effacer localStorage:', e);
+        }
+        
+        hideChecklist(); // Masquer la checklist lors de la réinitialisation
+        renderStep();
+      }
+    }
+    
+    function hideChecklist() {
+      const existingChecklist = document.getElementById('checklist-section');
+      if (existingChecklist) {
+        existingChecklist.remove();
+        console.log('Checklist masquée');
+      }
+    }
+    
+    
+    function showChecklist() {
+      console.log('Fonction showChecklist appelée');
+      const phase = state.ident.phase || '';
+      let checklistData = [];
+      
+      // Définir les mesures selon la phase
+      console.log('Phase détectée:', phase);
+      console.log('État complet:', state.ident);
+      
+      // Normaliser la phase pour une meilleure correspondance
+      const normalizedPhase = phase.toLowerCase().trim();
+      
+      // Utiliser les fonctions intégrées selon la phase
+      if (normalizedPhase.includes('cadrage') || normalizedPhase.includes('conception')) {
+        checklistData = getCadrageConceptionChecklist();
+        console.log('Checklist cadrage/conception sélectionnée');
+      } else if (normalizedPhase.includes('test') || normalizedPhase.includes('validation')) {
+        checklistData = getTestValidationChecklist();
+        console.log('Checklist test/validation sélectionnée');
+      } else if (normalizedPhase.includes('production') || normalizedPhase.includes('exploitation') || 
+                 normalizedPhase.includes('amélioration') || normalizedPhase.includes('amelioration') ||
+                 normalizedPhase.includes('mise en production')) {
+        checklistData = getProductionExploitationChecklist();
+        console.log('Checklist production/exploitation sélectionnée');
+      } else {
+        // Checkliste générale si phase non spécifiée
+        checklistData = getGeneralChecklist();
+        console.log('Checklist générale sélectionnée');
+      }
+      
+      console.log('Nombre de mesures dans la checklist:', checklistData.length);
+      
+      // Vérifier si la checklist est déjà affichée
+      const existingChecklist = document.getElementById('checklist-section');
+      if (existingChecklist) {
+        existingChecklist.remove();
+        return;
+      }
+      
+      
+      // Créer la section checklist à afficher sur la page
+      const checklistHtml = `
+        <div class="fr-container fr-mt-6v" id="checklist-section">
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12">
+              <div class="fr-callout fr-callout--blue-ecume">
+                <h2 class="fr-callout__title">
+                  <span class="fr-icon-checkbox-line fr-mr-1v" aria-hidden="true"></span>
+                  Checklist des mesures - ${phase || 'Phase non spécifiée'}
+                </h2>
+                <p class="fr-callout__text">
+                  Cette checklist vous aide à vérifier les mesures de conformité selon la phase de votre projet.
+                  <br><strong>Nombre de mesures :</strong> ${checklistData.length}
+                </p>
+              </div>
+              
+              <div class="fr-table fr-table--bordered fr-mt-4w">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Mesure</th>
+                      <th scope="col">Base légale</th>
+                      <th scope="col">Priorité</th>
+                      <th scope="col">Documentation</th>
+                      <th scope="col">Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${checklistData.map(item => `
+                      <tr>
+                        <td>${item.mesure}</td>
+                        <td>${item.baseLegale}</td>
+                        <td>
+                          <span class="fr-badge fr-badge--${item.priorite === 'Haute' ? 'error' : item.priorite === 'Moyenne' ? 'warning' : 'success'}">
+                            ${item.priorite}
+                          </span>
+                        </td>
+                        <td>
+                          ${item.documentation && item.documentation !== '-' ? 
+                            `<a href="${item.documentation}" target="_blank" rel="noopener" class="fr-link fr-link--sm">
+                              <span class="fr-icon-external-link-line fr-mr-1v" aria-hidden="true"></span>
+                              Documentation
+                            </a>` : 
+                            '<span class="fr-text--sm fr-text--disabled">-</span>'
+                          }
+                        </td>
+                        <td>
+                          <div class="fr-checkbox-group">
+                            <div class="fr-checkbox">
+                              <input type="checkbox" id="check-${item.id}" name="check-${item.id}">
+                              <label class="fr-label" for="check-${item.id}">Réalisé</label>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="fr-btns-group fr-btns-group--center fr-btns-group--inline-md fr-mt-4w">
+                <button class="fr-btn fr-btn--secondary" id="btn-hide-checklist">
+                  <span class="fr-icon-arrow-up-line fr-mr-1v" aria-hidden="true"></span>
+                  Masquer la checklist
+                </button>
+                <button class="fr-btn" id="btn-print-checklist">
+                  <span class="fr-icon-print-line fr-mr-1v" aria-hidden="true"></span>
+                  Imprimer la checklist
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Ajouter la checklist après la synthèse
+      const synthContainer = document.getElementById('synthContainer');
+      if (synthContainer) {
+        synthContainer.insertAdjacentHTML('afterend', checklistHtml);
+        
+        // Faire défiler vers la checklist
+        document.getElementById('checklist-section').scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+      
+      // Attacher les event listeners
+      document.getElementById('btn-hide-checklist')?.addEventListener('click', () => {
+        document.getElementById('checklist-section')?.remove();
+      });
+      
+      document.getElementById('btn-print-checklist')?.addEventListener('click', () => {
+        // Créer une nouvelle fenêtre pour l'impression
+        const printWindow = window.open('', '_blank');
+        
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Checklist des mesures - ${phase || 'Phase non spécifiée'}</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #000091; border-bottom: 2px solid #000091; padding-bottom: 10px; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f5f5f5; font-weight: bold; }
+              .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+              .badge-high { background-color: #ff6b6b; color: white; }
+              .badge-medium { background-color: #ffa726; color: white; }
+              .badge-low { background-color: #66bb6a; color: white; }
+            </style>
+          </head>
+          <body>
+            <h1>Checklist des mesures - ${phase || 'Phase non spécifiée'}</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Mesure</th>
+                  <th>Base légale</th>
+                  <th>Priorité</th>
+                  <th>Documentation</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${checklistData.map(item => `
+                  <tr>
+                    <td>${item.mesure}</td>
+                    <td>${item.baseLegale}</td>
+                    <td><span class="badge badge-${item.priorite === 'Haute' ? 'high' : item.priorite === 'Moyenne' ? 'medium' : 'low'}">${item.priorite}</span></td>
+                    <td>${item.documentation && item.documentation !== '-' ? item.documentation : '-'}</td>
+                    <td>☐ Réalisé</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </body>
+          </html>
+        `);
+        
+        printWindow.document.close();
+        printWindow.print();
+      });
+    }
+    
+    function getCadrageConceptionChecklist() {
+      return [
+        {
+          id: 1,
+          mesure: "Définition des objectifs du projet IA",
+          baseLegale: "RGPD Art. 5.1.b",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles"
+        },
+        {
+          id: 2,
+          mesure: "Identification des parties prenantes",
+          baseLegale: "RGPD Art. 4.7",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 3,
+          mesure: "Cartographie des données personnelles",
+          baseLegale: "RGPD Art. 30",
+          priorite: "Haute",
+          documentation: "Modèle CNIL : https://www.cnil.fr/sites/default/files/atoms/files/registre_traitements.pdf"
+        },
+        {
+          id: 4,
+          mesure: "Analyse des risques et impacts",
+          baseLegale: "RGPD Art. 35",
+          priorite: "Haute",
+          documentation: "Outil PIA CNIL : https://www.cnil.fr/fr/outil-pia-telechargez-et-installez-le-logiciel-de-la-cnil"
+        },
+        {
+          id: 5,
+          mesure: "Définition des bases légales",
+          baseLegale: "RGPD Art. 6",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 6,
+          mesure: "Conception privacy by design",
+          baseLegale: "RGPD Art. 25",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/fr/la-protection-des-donnees-des-la-conception"
+        },
+        {
+          id: 7,
+          mesure: "Évaluation de la proportionnalité",
+          baseLegale: "RGPD Art. 5.1.c",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 8,
+          mesure: "Définition des durées de conservation",
+          baseLegale: "RGPD Art. 5.1.e",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/default/files/atoms/files/guide_durees_de_conservation.pdf"
+        },
+        {
+          id: 9,
+          mesure: "Identification des transferts de données",
+          baseLegale: "RGPD Art. 44-49",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 10,
+          mesure: "Mise en place de la gouvernance",
+          baseLegale: "RGPD Art. 37-39",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 11,
+          mesure: "Formation des équipes",
+          baseLegale: "RGPD Art. 39.1.b",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 12,
+          mesure: "Définition des procédures d'exercice des droits",
+          baseLegale: "RGPD Art. 12-22",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 13,
+          mesure: "Mise en place des mesures de sécurité",
+          baseLegale: "RGPD Art. 32",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/cnil/files/2024-03/guide_securite_donnees_personnelles_checklist.pdf"
+        },
+        {
+          id: 14,
+          mesure: "Définition des procédures de notification de violation",
+          baseLegale: "RGPD Art. 33-34",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 15,
+          mesure: "Évaluation de la conformité IA Act",
+          baseLegale: "RIA Art. 6",
+          priorite: "Haute",
+          documentation: "https://artificialintelligenceact.eu/fr/"
+        }
+      ];
+    }
+    
+    function getTestValidationChecklist() {
+      return [
+        {
+          id: 1,
+          mesure: "Tests de conformité RGPD",
+          baseLegale: "RGPD Art. 5",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles"
+        },
+        {
+          id: 2,
+          mesure: "Validation des bases légales",
+          baseLegale: "RGPD Art. 6",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 3,
+          mesure: "Tests de minimisation des données",
+          baseLegale: "RGPD Art. 5.1.c",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 4,
+          mesure: "Validation des durées de conservation",
+          baseLegale: "RGPD Art. 5.1.e",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/default/files/atoms/files/guide_durees_de_conservation.pdf"
+        },
+        {
+          id: 5,
+          mesure: "Tests de sécurité des données",
+          baseLegale: "RGPD Art. 32",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/cnil/files/2024-03/guide_securite_donnees_personnelles_checklist.pdf"
+        },
+        {
+          id: 6,
+          mesure: "Validation des procédures d'exercice des droits",
+          baseLegale: "RGPD Art. 12-22",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 7,
+          mesure: "Tests de transparence et d'information",
+          baseLegale: "RGPD Art. 13-14",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 8,
+          mesure: "Validation des mesures de protection des données sensibles",
+          baseLegale: "RGPD Art. 9",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 9,
+          mesure: "Tests de l'impact sur les droits fondamentaux",
+          baseLegale: "RGPD Art. 35",
+          priorite: "Haute",
+          documentation: "Outil PIA CNIL : https://www.cnil.fr/fr/outil-pia-telechargez-et-installez-le-logiciel-de-la-cnil"
+        },
+        {
+          id: 10,
+          mesure: "Validation des transferts de données",
+          baseLegale: "RGPD Art. 44-49",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 11,
+          mesure: "Tests de conformité IA Act",
+          baseLegale: "RIA Art. 6-15",
+          priorite: "Haute",
+          documentation: "https://artificialintelligenceact.eu/fr/"
+        },
+        {
+          id: 12,
+          mesure: "Validation des mesures de transparence IA",
+          baseLegale: "RIA Art. 13",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 13,
+          mesure: "Tests de supervision humaine",
+          baseLegale: "RIA Art. 14",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 14,
+          mesure: "Validation des mesures de robustesse",
+          baseLegale: "RIA Art. 15",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 15,
+          mesure: "Tests de gestion des risques",
+          baseLegale: "RIA Art. 9",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 16,
+          mesure: "Validation de la documentation technique",
+          baseLegale: "RIA Art. 11",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 17,
+          mesure: "Tests de traçabilité",
+          baseLegale: "RIA Art. 12",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 18,
+          mesure: "Validation des mesures de cybersécurité",
+          baseLegale: "RIA Art. 15.4",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 19,
+          mesure: "Tests de conformité des données d'entraînement",
+          baseLegale: "RIA Art. 10",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 20,
+          mesure: "Validation des procédures de notification d'incidents",
+          baseLegale: "RIA Art. 73",
+          priorite: "Moyenne",
+          documentation: "-"
+        }
+      ];
+    }
+    
+    function getProductionExploitationChecklist() {
+      return [
+        {
+          id: 1,
+          mesure: "Surveillance continue de la conformité RGPD",
+          baseLegale: "RGPD Art. 5",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles"
+        },
+        {
+          id: 2,
+          mesure: "Maintenance des bases légales",
+          baseLegale: "RGPD Art. 6",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 3,
+          mesure: "Surveillance de la minimisation des données",
+          baseLegale: "RGPD Art. 5.1.c",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 4,
+          mesure: "Gestion des durées de conservation en production",
+          baseLegale: "RGPD Art. 5.1.e",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/default/files/atoms/files/guide_durees_de_conservation.pdf"
+        },
+        {
+          id: 5,
+          mesure: "Surveillance continue de la sécurité",
+          baseLegale: "RGPD Art. 32",
+          priorite: "Haute",
+          documentation: "Guide CNIL : https://www.cnil.fr/sites/cnil/files/2024-03/guide_securite_donnees_personnelles_checklist.pdf"
+        },
+        {
+          id: 6,
+          mesure: "Gestion des demandes d'exercice des droits",
+          baseLegale: "RGPD Art. 12-22",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 7,
+          mesure: "Mise à jour des informations de transparence",
+          baseLegale: "RGPD Art. 13-14",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 8,
+          mesure: "Surveillance des données sensibles en production",
+          baseLegale: "RGPD Art. 9",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 9,
+          mesure: "Réévaluation périodique de l'impact",
+          baseLegale: "RGPD Art. 35",
+          priorite: "Haute",
+          documentation: "Outil PIA CNIL : https://www.cnil.fr/fr/outil-pia-telechargez-et-installez-le-logiciel-de-la-cnil"
+        },
+        {
+          id: 10,
+          mesure: "Surveillance des transferts de données",
+          baseLegale: "RGPD Art. 44-49",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 11,
+          mesure: "Surveillance continue de la conformité IA Act",
+          baseLegale: "RIA Art. 6-15",
+          priorite: "Haute",
+          documentation: "https://artificialintelligenceact.eu/fr/"
+        },
+        {
+          id: 12,
+          mesure: "Maintenance de la transparence IA",
+          baseLegale: "RIA Art. 13",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 13,
+          mesure: "Surveillance de la supervision humaine",
+          baseLegale: "RIA Art. 14",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 14,
+          mesure: "Maintenance de la robustesse du système",
+          baseLegale: "RIA Art. 15",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 15,
+          mesure: "Gestion continue des risques",
+          baseLegale: "RIA Art. 9",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 16,
+          mesure: "Mise à jour de la documentation technique",
+          baseLegale: "RIA Art. 11",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 17,
+          mesure: "Maintenance de la traçabilité",
+          baseLegale: "RIA Art. 12",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 18,
+          mesure: "Surveillance continue de la cybersécurité",
+          baseLegale: "RIA Art. 15.4",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 19,
+          mesure: "Gestion des mises à jour du modèle",
+          baseLegale: "RIA Art. 10",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 20,
+          mesure: "Gestion des incidents et notifications",
+          baseLegale: "RIA Art. 73",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 21,
+          mesure: "Audits de conformité réguliers",
+          baseLegale: "RIA Art. 12",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 22,
+          mesure: "Formation continue des équipes",
+          baseLegale: "RIA Art. 10",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 23,
+          mesure: "Surveillance des performances et métriques",
+          baseLegale: "RIA Art. 12",
+          priorite: "Moyenne",
+          documentation: "-"
+        },
+        {
+          id: 24,
+          mesure: "Gestion des évolutions substantielles",
+          baseLegale: "RIA Art. 43.4",
+          priorite: "Haute",
+          documentation: "-"
+        },
+        {
+          id: 25,
+          mesure: "Surveillance de l'impact environnemental",
+          baseLegale: "RIA Art. 10",
+          priorite: "Moyenne",
+          documentation: "-"
+        }
+      ];
+    }
+    
+    function getGeneralChecklist() {
+      return [
+        {
+          id: 1,
+          mesure: "Évaluer la conformité RGPD générale",
+          baseLegale: "RGPD Art. 5",
+          priorite: "Haute"
+        },
+        {
+          id: 2,
+          mesure: "Mettre en place les mesures de sécurité",
+          baseLegale: "RGPD Art. 32",
+          priorite: "Haute"
+        },
+        {
+          id: 3,
+          mesure: "Respecter les droits des personnes",
+          baseLegale: "RGPD Art. 15-22",
+          priorite: "Haute"
+        },
+        {
+          id: 4,
+          mesure: "Tenir le registre des traitements",
+          baseLegale: "RGPD Art. 30",
+          priorite: "Moyenne"
+        }
+      ];
+    }
+
+    function computeScore() {
+      if (!QUESTIONS) return { yes: 0, nonOrNA: 0, score: 0, nonItems: [], yesItems: [] };
+      
+      const act = activeSequence().filter(s => s.type === 'question');
+      let yes = 0, nonOrNA = 0;
+      const nonItems = [], yesItems = [];
+      
+      for (const step of act) {
+        const q = step.q;
+        const a = state.answers[q.id];
+        if (a === 'Oui') { 
+          yes++; 
+          yesItems.push(q); 
+        } else if (a === 'Non' || a === 'N/A') { 
+          nonOrNA++; 
+          nonItems.push(q); 
+        }
+      }
+      
+      const denom = yes + nonOrNA;
+      const score = denom > 0 ? Math.round(yes/denom*100) : 0;
+      return { yes, nonOrNA, score, nonItems, yesItems };
+    }
+
+    function renderSynthesis() {
+      if (!QUESTIONS) return;
+      
+      // Tracker le parcours terminé (une seule fois par session)
+      if (!sessionStorage.getItem('questionnaire_completed_tracked')) {
+        trackCompleted();
+        sessionStorage.setItem('questionnaire_completed_tracked', 'true');
+      }
+      
+      const result = computeScore();
+      let { yes, nonOrNA, score } = result;
+      let nonItems = result.nonItems.slice(), yesItems = result.yesItems.slice();
+      const id = state.ident;
+
+      if (state.elim) {
+        const eliminatedQuestion = QUESTIONS.others.find(q => q.id === state.elim.qId);
+        if (eliminatedQuestion) {
+          nonItems = [eliminatedQuestion];
+        }
+        yesItems = [];
+        score = 0; 
+        yes = 0; 
+        nonOrNA = 1;
+      }
+
+      let yesItemsHtml = '';
+      if (yesItems.length > 0) {
+        yesItemsHtml = `
+          <h3 class="fr-h5 fr-mb-3w">Éléments conformes :</h3>
+          <div class="fr-grid-row fr-grid-row--gutters">
+            ${yesItems.map(q => `
+                <div class="fr-col-12 fr-col-lg-6">
+                  <div class="fr-card">
+                    <div class="fr-card__body">
+                      <div class="fr-card__content">
+                        <h4 class="fr-card__title">
+                          <span class="fr-badge fr-badge--success fr-badge--sm fr-mr-2v">${q.volet||'—'}</span>
+                          ${escapeHtml(q.question)}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+          </div>
+        `;
+      }
+
+      let nonItemsHtml = '';
+      if (nonItems.length > 0) {
+        nonItemsHtml = `
+          <h3 class="fr-h5 fr-mb-3w fr-mt-6v">Mesures à prendre :</h3>
+          <div class="fr-grid-row fr-grid-row--gutters">
+            ${nonItems.map((q, index) => {
+              const userAns = state.answers[q.id];
+              const displayAns = (userAns==='N/A') ? 'Non' : (userAns||'—');
+              const noteTxt = (userAns==='N/A' && state.notes[q.id]) ? ' — ' + escapeHtml(state.notes[q.id]) : '';
+              
+              let contextLinkHtml = '';
+              if (isNonEmpty(q.lien)) {
+                const firstLink = getFirstLink(q.lien);
+                if (firstLink) {
+                  contextLinkHtml = ` <a href="${escapeHtml(firstLink)}" target="_blank" rel="noopener" class="link-btn" title="Ouvrir le lien de référence: ${escapeHtml(firstLink)}">?</a>`;
+                }
+              } else {
+                contextLinkHtml = ` <span class="link-btn-disabled" title="Aucun lien disponible">?</span>`;
+              }
+              
+              return `
+                <div class="fr-col-12">
+                  <div class="fr-card">
+                    <div class="fr-card__body">
+                      <div class="fr-card__content">
+                        <div class="fr-mb-3w">
+                          <span class="fr-badge fr-badge--error fr-badge--sm fr-mr-2v">${q.volet||'—'}</span>
+                          <strong>${escapeHtml(q.question)}</strong>
+                        </div>
+                        <p class="fr-text--sm fr-mb-3w">
+                          <strong>Votre réponse :</strong> ${displayAns}${noteTxt}
+                        </p>
+                        <p class="fr-text--sm fr-mb-2w">
+                          <strong>Mesure à prendre :</strong><br>
+                          ${isNonEmpty(q.non) ? escapeHtml(q.non).replace(/\n/g,'<br>') : '(Non renseigné)'}
+                        </p>
+                        ${(isNonEmpty(q.info) || contextLinkHtml) ? `
+                          <details class="fr-mt-2w">
+                            <summary class="fr-text--sm">En savoir plus</summary>
+                            <div class="fr-callout fr-mt-1w">
+                              <p class="fr-text--sm">
+                                ${isNonEmpty(q.info) ? escapeHtml(q.info).replace(/\n/g,'<br>') : ''}${contextLinkHtml}
+                              </p>
+                            </div>
+                          </details>
+                        ` : ''}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      synthContainer.innerHTML = `
+        <h2 class="fr-h4 fr-mb-4w" tabindex="-1">Synthèse</h2>
+        
+        <div class="fr-callout fr-callout--brown-caramel fr-mb-4w">
+          <p class="fr-text--sm">
+            <strong>Projet :</strong> ${escapeHtml(id.projet||'—')} • 
+            <strong>Phase :</strong> ${escapeHtml(id.phase||'—')}<br>
+            <strong>Contact :</strong> ${escapeHtml(id.prenom||'')} ${escapeHtml(id.nom||'')} • 
+            ${escapeHtml(id.bureau||'')} • ${escapeHtml(id.email||'')}
+          </p>
+        </div>
+        
+        <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+          <div class="fr-col-12 fr-col-md-4">
+            <div class="fr-card fr-card--no-arrow">
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <h3 class="fr-card__title fr-h2">${score}%</h3>
+                  <p class="fr-card__desc">Score de conformité</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fr-col-12 fr-col-md-4">
+            <div class="fr-card fr-card--no-arrow">
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <h3 class="fr-card__title fr-h2">${yes}</h3>
+                  <p class="fr-card__desc">Éléments conformes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fr-col-12 fr-col-md-4">
+            <div class="fr-card fr-card--no-arrow">
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <h3 class="fr-card__title fr-h2">${nonOrNA}</h3>
+                  <p class="fr-card__desc">Mesures à prendre</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        ${yesItemsHtml}
+        ${nonItemsHtml}
+        
+        <div class="fr-callout fr-callout--blue-ecume fr-mt-6v">
+          <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+            <div class="fr-col fr-col-md-8">
+              <p class="fr-text--sm fr-mb-0">
+                <strong>Pour obtenir l'avis de la Mission Conformité et prévoir un accompagnement,</strong> vous pouvez transmettre votre synthèse, nous vous proposerons des créneaux pour en discuter.
+              </p>
+            </div>
+            <div class="fr-col fr-col-md-4 fr-text--right">
+              <button class="fr-btn fr-btn--primary" id="btn-send-conformity">
+                <span class="fr-icon-mail-line fr-mr-1v" aria-hidden="true"></span>
+                Envoyer à la Conformité
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <ul class="fr-btns-group fr-btns-group--center fr-btns-group--inline-md fr-mt-6v fr-no-print">
+          <li>
+            <button class="fr-btn fr-btn--secondary" id="btn-checklist">
+              <span class="fr-icon-checkbox-line fr-mr-1v" aria-hidden="true"></span>
+              Checklist des mesures
+            </button>
+          </li>
+          <li>
+            <button class="fr-btn" id="btn-print">Imprimer la synthèse</button>
+          </li>
+          <li>
+            <button class="fr-btn fr-btn--secondary" id="btn-back">Modifier mes réponses</button>
+          </li>
+          <li>
+            <button class="fr-btn fr-btn--tertiary" id="btn-restart">
+              <span class="fr-icon-refresh-line fr-mr-1v" aria-hidden="true"></span>
+              Recommencer
+            </button>
+          </li>
+        </ul>
+      `;
+      
+      document.getElementById('btn-print')?.addEventListener('click', () => { window.print(); });
+      document.getElementById('btn-restart')?.addEventListener('click', () => { resetAll(); });
+      document.getElementById('btn-back')?.addEventListener('click', () => {
+        hideChecklist(); // Masquer la checklist quand on modifie les réponses
+        if (state.elim && typeof state.elim.index === 'number') {
+          state.current = state.elim.index;
+        } else {
+          const act = activeSequence();
+          state.current = Math.max(0, act.length - 1);
+        }
+        state.elim = null;
+        if (stepContainer) stepContainer.classList.remove('hidden');
+        if (progressCard) progressCard.classList.remove('hidden');
+        if (synthContainer) synthContainer.classList.add('hidden');
+        renderStep();
+      });
+      
+      document.getElementById('btn-send-conformity')?.addEventListener('click', () => {
+        sendToConformityWithContent();
+      });
+    }
+
+    // Fonction pour générer un PDF de la synthèse
+    function generateSynthesisPDF() {
+      // Vérifier si jsPDF est disponible
+      if (typeof window.jsPDF === 'undefined' && typeof window.jspdf === 'undefined') {
+        showError('Erreur : Bibliothèque PDF non chargée. Veuillez recharger la page.');
+        return null;
+      }
+
+      // Utiliser la bibliothèque disponible
+      const jsPDF = window.jsPDF || window.jspdf;
+      const doc = new jsPDF();
+      
+      // Configuration de la police et des marges
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 20;
+      const maxWidth = pageWidth - (margin * 2);
+      
+      // Fonction pour ajouter du texte avec retour à la ligne automatique
+      function addText(text, x, y, maxWidth, fontSize = 10) {
+        doc.setFontSize(fontSize);
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, x, y);
+        return y + (lines.length * (fontSize * 0.4));
+      }
+      
+      let yPosition = margin;
+      
+      // En-tête
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      yPosition = addText('Synthèse - Questionnaire Conformité IA', margin, yPosition, maxWidth, 16);
+      yPosition += 10;
+      
+      // Informations du projet
+      const id = state.ident;
+      doc.setFontSize(12);
+      doc.setFont(undefined, 'bold');
+      yPosition = addText('Informations du projet', margin, yPosition, maxWidth, 12);
+      yPosition += 5;
+      
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      yPosition = addText(`Projet : ${id.projet || '—'}`, margin, yPosition, maxWidth);
+      yPosition = addText(`Phase : ${id.phase || '—'}`, margin, yPosition, maxWidth);
+      yPosition = addText(`Contact : ${id.prenom || ''} ${id.nom || ''}`, margin, yPosition, maxWidth);
+      yPosition = addText(`Bureau : ${id.bureau || '—'}`, margin, yPosition, maxWidth);
+      yPosition = addText(`Email : ${id.email || '—'}`, margin, yPosition, maxWidth);
+      yPosition += 10;
+      
+      // Score de conformité
+      const result = computeScore();
+      let { yes, nonOrNA, score } = result;
+      let nonItems = result.nonItems.slice(), yesItems = result.yesItems.slice();
+      
+      if (state.elim) {
+        const eliminatedQuestion = QUESTIONS.others.find(q => q.id === state.elim.qId);
+        if (eliminatedQuestion) {
+          nonItems = [eliminatedQuestion];
+        }
+        yesItems = [];
+        score = 0; 
+        yes = 0; 
+        nonOrNA = 1;
+      }
+      
+      doc.setFontSize(12);
+      doc.setFont(undefined, 'bold');
+      yPosition = addText('Résultats', margin, yPosition, maxWidth, 12);
+      yPosition += 5;
+      
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      yPosition = addText(`Score de conformité : ${score}%`, margin, yPosition, maxWidth);
+      yPosition = addText(`Éléments conformes : ${yes}`, margin, yPosition, maxWidth);
+      yPosition = addText(`Mesures à prendre : ${nonOrNA}`, margin, yPosition, maxWidth);
+      yPosition += 10;
+      
+      // Éléments conformes
+      if (yesItems.length > 0) {
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        yPosition = addText('Éléments conformes :', margin, yPosition, maxWidth, 12);
+        yPosition += 5;
+        
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'normal');
+        yesItems.forEach((q, index) => {
+          if (yPosition > 250) {
+            doc.addPage();
+            yPosition = margin;
+          }
+          yPosition = addText(`${index + 1}. [${q.volet || '—'}] ${q.question}`, margin, yPosition, maxWidth);
+          yPosition += 3;
+        });
+        yPosition += 5;
+      }
+      
+      // Mesures à prendre
+      if (nonItems.length > 0) {
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        yPosition = addText('Mesures à prendre :', margin, yPosition, maxWidth, 12);
+        yPosition += 5;
+        
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'normal');
+        nonItems.forEach((q, index) => {
+          if (yPosition > 250) {
+            doc.addPage();
+            yPosition = margin;
+          }
+          
+          const userAns = state.answers[q.id];
+          const displayAns = (userAns === 'N/A') ? 'Non' : (userAns || '—');
+          const noteTxt = (userAns === 'N/A' && state.notes[q.id]) ? ` — ${state.notes[q.id]}` : '';
+          
+          yPosition = addText(`${index + 1}. [${q.volet || '—'}] ${q.question}`, margin, yPosition, maxWidth);
+          yPosition = addText(`   Réponse : ${displayAns}${noteTxt}`, margin, yPosition, maxWidth);
+          
+          if (q.non && q.non.trim()) {
+            yPosition = addText(`   Mesure : ${q.non}`, margin, yPosition, maxWidth);
+          }
+          yPosition += 5;
+        });
+      }
+      
+      // Pied de page
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(`Page ${i} sur ${pageCount}`, pageWidth - 30, doc.internal.pageSize.getHeight() - 10);
+        doc.text('Questionnaire Conformité IA - DGFIP', margin, doc.internal.pageSize.getHeight() - 10);
+      }
+      
+      return doc;
+    }
+
+    // Fonction alternative pour générer un PDF simple
+    function generateSimplePDF() {
+      try {
+        console.log('Génération PDF simple');
+        
+        // Vérifier que synthContainer existe
+        if (!synthContainer) {
+          console.error('synthContainer non trouvé');
+          return false;
+        }
+        
+        // Créer un contenu HTML pour l'impression
+        const printContent = document.createElement('div');
+        printContent.innerHTML = synthContainer.innerHTML;
+        
+        // Ouvrir une nouvelle fenêtre pour l'impression
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        
+        if (!printWindow) {
+          console.error('Impossible d\'ouvrir une nouvelle fenêtre (popup bloqué)');
+          showError('Veuillez autoriser les popups pour cette fonctionnalité, ou utilisez le bouton "Imprimer la synthèse" manuellement.');
+          return false;
+        }
+        
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Synthèse Conformité IA</title>
+            <meta charset="utf-8">
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.4; }
+              .fr-callout { border: 1px solid #ccc; padding: 15px; margin: 10px 0; background: #f8f9fa; }
+              .fr-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; }
+              .fr-badge { background: #000091; color: white; padding: 2px 8px; border-radius: 3px; font-size: 12px; display: inline-block; margin-right: 5px; }
+              .fr-badge--success { background: #28a745; }
+              .fr-badge--error { background: #dc3545; }
+              .fr-h4, .fr-h5 { color: #000091; margin-top: 20px; }
+              .fr-text--sm { font-size: 14px; }
+              .fr-grid-row { margin: 10px 0; }
+              .fr-col { margin: 5px 0; }
+              @media print { 
+                body { margin: 0; }
+                .fr-no-print { display: none !important; }
+              }
+            </style>
+          </head>
+          <body>
+            <h1>Synthèse - Questionnaire Conformité IA</h1>
+            <p><strong>Date de génération :</strong> ${new Date().toLocaleDateString('fr-FR')}</p>
+            ${printContent.innerHTML}
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+        
+        // Attendre que le contenu soit chargé puis imprimer
+        printWindow.onload = function() {
+          setTimeout(() => {
+            printWindow.print();
+            // Ne pas fermer automatiquement pour laisser l'utilisateur choisir
+            // printWindow.close();
+          }, 500);
+        };
+        
+        return true;
+      } catch (error) {
+        console.error('Erreur dans generateSimplePDF:', error);
+        return false;
+      }
+    }
+
+    // Fonction pour envoyer à la conformité
+    function sendToConformity() {
+      try {
+        console.log('Début de sendToConformity');
+        
+        // Vérifier si on est dans la synthèse
+        if (!synthContainer || synthContainer.classList.contains('hidden')) {
+          showError('Veuillez d\'abord terminer le questionnaire pour accéder à la synthèse.');
+          return;
+        }
+        
+        // Essayer de générer le PDF avec jsPDF
+        console.log('Tentative de génération PDF avec jsPDF');
+        const pdfDoc = generateSynthesisPDF();
+        
+        if (!pdfDoc) {
+          console.log('jsPDF non disponible, utilisation du fallback');
+          // Fallback : utiliser l'impression simple
+          showSuccess('Ouverture de l\'impression pour générer le PDF...');
+          
+          try {
+            generateSimplePDF();
+          } catch (printError) {
+            console.error('Erreur lors de l\'impression:', printError);
+            showError('Erreur lors de l\'ouverture de l\'impression. Veuillez utiliser le bouton "Imprimer la synthèse" manuellement.');
+          }
+          
+          // Créer le contenu de l'email
+          const subject = encodeURIComponent(`Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`);
+          const body = encodeURIComponent(`Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+Informations du projet :
+- Projet : ${state.ident.projet || '—'}
+- Phase : ${state.ident.phase || '—'}
+- Contact : ${state.ident.prenom || ''} ${state.ident.nom || ''}
+- Bureau : ${state.ident.bureau || '—'}
+- Email : ${state.ident.email || '—'}
+
+La synthèse détaillée est en pièce jointe (veuillez imprimer en PDF depuis votre navigateur).
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`);
+
+          // Adresse email de destination
+          const emailAddress = 'dtnum.donnees.conformite@dgfip.finances.gouv.fr';
+          
+          // Créer un lien mailto
+          const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+          
+          // Ouvrir le client de messagerie
+          setTimeout(() => {
+            try {
+              window.open(mailtoLink, '_blank');
+              showSuccess('Client de messagerie ouvert avec succès !');
+            } catch (emailError) {
+              console.error('Erreur lors de l\'ouverture de l\'email:', emailError);
+              showError('Impossible d\'ouvrir le client de messagerie. Veuillez copier manuellement l\'adresse : ' + emailAddress);
+            }
+          }, 2000);
+          
+          return;
+        }
+        
+        // Générer le nom du fichier avec la date
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0];
+        const projectName = state.ident.projet ? state.ident.projet.replace(/[^a-zA-Z0-9]/g, '_') : 'questionnaire';
+        const fileName = `synthese_conformite_ia_${projectName}_${dateStr}.pdf`;
+        
+        // Générer le PDF en base64
+        const pdfBase64 = pdfDoc.output('datauristring');
+        
+        // Créer le contenu de l'email
+        const subject = encodeURIComponent(`Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`);
+        const body = encodeURIComponent(`Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+Informations du projet :
+- Projet : ${state.ident.projet || '—'}
+- Phase : ${state.ident.phase || '—'}
+- Contact : ${state.ident.prenom || ''} ${state.ident.nom || ''}
+- Bureau : ${state.ident.bureau || '—'}
+- Email : ${state.ident.email || '—'}
+
+La synthèse détaillée est en pièce jointe.
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`);
+
+        // Adresse email de destination
+        const emailAddress = 'dtnum.donnees.conformite@dgfip.finances.gouv.fr';
+        
+        // Créer un lien mailto avec la pièce jointe (base64)
+        const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+        
+        // Ouvrir le client de messagerie
+        window.open(mailtoLink, '_blank');
+        
+        // Afficher un message de succès
+        showSuccess('Le client de messagerie a été ouvert. La synthèse sera générée en PDF lors de l\'envoi.');
+        
+        // Optionnel : télécharger le PDF pour l'utilisateur
+        setTimeout(() => {
+          const link = document.createElement('a');
+          link.href = pdfBase64;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi à la conformité:', error);
+        showError('Une erreur est survenue lors de la préparation de l\'envoi. Veuillez réessayer.');
+      }
+    }
+
+    // Fonction pour générer un PDF à partir du contenu HTML
+    async function generatePDFFromHTML() {
+      try {
+        console.log('Génération PDF à partir du HTML');
+        
+        // Vérifier que jsPDF est disponible
+        if (typeof window.jsPDF === 'undefined' && typeof window.jspdf === 'undefined') {
+          throw new Error('jsPDF non disponible');
+        }
+        
+        const jsPDF = window.jsPDF || window.jspdf;
+        
+        // Créer le PDF avec du contenu textuel
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const margin = 20;
+        const maxWidth = pageWidth - (margin * 2);
+        
+        let yPosition = margin;
+        
+        // Fonction pour ajouter du texte avec retour à la ligne
+        function addText(text, x, y, maxWidth, fontSize = 10, isBold = false) {
+          pdf.setFontSize(fontSize);
+          pdf.setFont(undefined, isBold ? 'bold' : 'normal');
+          const lines = pdf.splitTextToSize(text, maxWidth);
+          pdf.text(lines, x, y);
+          return y + (lines.length * (fontSize * 0.4));
+        }
+        
+        // En-tête
+        yPosition = addText('Synthèse - Questionnaire Conformité IA', margin, yPosition, maxWidth, 16, true);
+        yPosition += 10;
+        
+        // Informations du projet
+        const id = state.ident;
+        yPosition = addText('Informations du projet', margin, yPosition, maxWidth, 12, true);
+        yPosition += 5;
+        
+        yPosition = addText(`Projet : ${id.projet || '—'}`, margin, yPosition, maxWidth);
+        yPosition = addText(`Phase : ${id.phase || '—'}`, margin, yPosition, maxWidth);
+        yPosition = addText(`Contact : ${id.prenom || ''} ${id.nom || ''}`, margin, yPosition, maxWidth);
+        yPosition = addText(`Bureau : ${id.bureau || '—'}`, margin, yPosition, maxWidth);
+        yPosition = addText(`Email : ${id.email || '—'}`, margin, yPosition, maxWidth);
+        yPosition += 10;
+        
+        // Score de conformité
+        const result = computeScore();
+        let { yes, nonOrNA, score } = result;
+        let nonItems = result.nonItems.slice(), yesItems = result.yesItems.slice();
+        
+        if (state.elim) {
+          const eliminatedQuestion = QUESTIONS.others.find(q => q.id === state.elim.qId);
+          if (eliminatedQuestion) {
+            nonItems = [eliminatedQuestion];
+          }
+          yesItems = [];
+          score = 0; 
+          yes = 0; 
+          nonOrNA = 1;
+        }
+        
+        yPosition = addText('Résultats', margin, yPosition, maxWidth, 12, true);
+        yPosition += 5;
+        
+        yPosition = addText(`Score de conformité : ${score}%`, margin, yPosition, maxWidth);
+        yPosition = addText(`Éléments conformes : ${yes}`, margin, yPosition, maxWidth);
+        yPosition = addText(`Mesures à prendre : ${nonOrNA}`, margin, yPosition, maxWidth);
+        yPosition += 10;
+        
+        // Éléments conformes
+        if (yesItems.length > 0) {
+          yPosition = addText('Éléments conformes :', margin, yPosition, maxWidth, 12, true);
+          yPosition += 5;
+          
+          yesItems.forEach((q, index) => {
+            if (yPosition > 250) {
+              pdf.addPage();
+              yPosition = margin;
+            }
+            yPosition = addText(`${index + 1}. [${q.volet || '—'}] ${q.question}`, margin, yPosition, maxWidth);
+            yPosition += 3;
+          });
+          yPosition += 5;
+        }
+        
+        // Mesures à prendre
+        if (nonItems.length > 0) {
+          yPosition = addText('Mesures à prendre :', margin, yPosition, maxWidth, 12, true);
+          yPosition += 5;
+          
+          nonItems.forEach((q, index) => {
+            if (yPosition > 250) {
+              pdf.addPage();
+              yPosition = margin;
+            }
+            
+            const userAns = state.answers[q.id];
+            const displayAns = (userAns === 'N/A') ? 'Non' : (userAns || '—');
+            const noteTxt = (userAns === 'N/A' && state.notes[q.id]) ? ` — ${state.notes[q.id]}` : '';
+            
+            yPosition = addText(`${index + 1}. [${q.volet || '—'}] ${q.question}`, margin, yPosition, maxWidth);
+            yPosition = addText(`   Réponse : ${displayAns}${noteTxt}`, margin, yPosition, maxWidth);
+            
+            if (q.non && q.non.trim()) {
+              yPosition = addText(`   Mesure : ${q.non}`, margin, yPosition, maxWidth);
+            }
+            yPosition += 5;
+          });
+        }
+        
+        // Pied de page
+        const pageCount = pdf.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+          pdf.setPage(i);
+          pdf.setFontSize(8);
+          pdf.text(`Page ${i} sur ${pageCount}`, pageWidth - 30, pdf.internal.pageSize.getHeight() - 10);
+          pdf.text('Questionnaire Conformité IA - DGFIP', margin, pdf.internal.pageSize.getHeight() - 10);
+        }
+        
+        return pdf;
+      } catch (error) {
+        console.error('Erreur lors de la génération PDF:', error);
+        throw error;
+      }
+    }
+
+    // Fonction pour générer le contenu textuel de la synthèse pour l'email
+    function generateSynthesisTextContent() {
+      const result = computeScore();
+      let { yes, nonOrNA, score } = result;
+      let nonItems = result.nonItems.slice(), yesItems = result.yesItems.slice();
+      
+      if (state.elim) {
+        const eliminatedQuestion = QUESTIONS.others.find(q => q.id === state.elim.qId);
+        if (eliminatedQuestion) {
+          nonItems = [eliminatedQuestion];
+        }
+        yesItems = [];
+        score = 0; 
+        yes = 0; 
+        nonOrNA = 1;
+      }
+      
+      const id = state.ident;
+      
+      let content = `SYNTHÈSE - QUESTIONNAIRE CONFORMITÉ IA
+===============================================
+
+INFORMATIONS DU PROJET
+----------------------
+Projet : ${id.projet || '—'}
+Phase : ${id.phase || '—'}
+Contact : ${id.prenom || ''} ${id.nom || ''}
+Bureau : ${id.bureau || '—'}
+Email : ${id.email || '—'}
+
+RÉSULTATS
+---------
+Score de conformité : ${score}%
+Éléments conformes : ${yes}
+Mesures à prendre : ${nonOrNA}
+
+`;
+
+      // Éléments conformes
+      if (yesItems.length > 0) {
+        content += `ÉLÉMENTS CONFORMES
+------------------
+`;
+        yesItems.forEach((q, index) => {
+          content += `${index + 1}. [${q.volet || '—'}] ${q.question}
+`;
+        });
+        content += `
+`;
+      }
+      
+      // Mesures à prendre
+      if (nonItems.length > 0) {
+        content += `MESURES À PRENDRE
+-----------------
+`;
+        nonItems.forEach((q, index) => {
+          const userAns = state.answers[q.id];
+          const displayAns = (userAns === 'N/A') ? 'Non' : (userAns || '—');
+          const noteTxt = (userAns === 'N/A' && state.notes[q.id]) ? ` — ${state.notes[q.id]}` : '';
+          
+          content += `${index + 1}. [${q.volet || '—'}] ${q.question}
+   Réponse : ${displayAns}${noteTxt}
+`;
+          
+          if (q.non && q.non.trim()) {
+            content += `   Mesure : ${q.non}
+`;
+          }
+          
+          if (q.info && q.info.trim()) {
+            content += `   En savoir plus : ${q.info}
+`;
+          }
+          
+          content += `
+`;
+        });
+      }
+      
+      content += `---
+Questionnaire Conformité IA - DGFIP
+Date de génération : ${new Date().toLocaleDateString('fr-FR')}
+`;
+      
+      return content;
+    }
+
+    // Fonction pour envoyer à la conformité avec le contenu dans l'email
+    function sendToConformityWithContent() {
+      try {
+        console.log('Envoi à la conformité avec contenu');
+        
+        // Vérifier si on est dans la synthèse
+        if (!synthContainer || synthContainer.classList.contains('hidden')) {
+          showError('Veuillez d\'abord terminer le questionnaire pour accéder à la synthèse.');
+          return;
+        }
+        
+        // Générer le contenu textuel de la synthèse
+        const synthesisTextContent = generateSynthesisTextContent();
+        
+        // Créer le contenu de l'email
+        const subject = encodeURIComponent(`Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`);
+        const body = encodeURIComponent(`Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+${synthesisTextContent}
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`);
+
+        // Adresse email de destination
+        const emailAddress = 'dtnum.donnees.conformite@dgfip.finances.gouv.fr';
+        
+        // Créer un lien mailto
+        const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+        
+        // Ouvrir le client de messagerie
+        try {
+          window.open(mailtoLink, '_blank');
+          showSuccess('Client de messagerie ouvert avec succès ! La synthèse complète est incluse dans le corps du message.');
+        } catch (emailError) {
+          console.error('Erreur lors de l\'ouverture de l\'email:', emailError);
+          showError('Impossible d\'ouvrir le client de messagerie. Veuillez copier manuellement l\'adresse : ' + emailAddress);
+        }
+        
+      } catch (error) {
+        console.error('Erreur dans sendToConformityWithContent:', error);
+        showError('Une erreur est survenue. Veuillez utiliser le bouton "Imprimer la synthèse" puis envoyer manuellement à : dtnum.donnees.conformite@dgfip.finances.gouv.fr');
+      }
+    }
+
+    // Fonction pour envoyer à la conformité avec PDF inclus
+    async function sendToConformityWithPDF() {
+      try {
+        console.log('Envoi à la conformité avec PDF');
+        
+        // Vérifier si on est dans la synthèse
+        if (!synthContainer || synthContainer.classList.contains('hidden')) {
+          showError('Veuillez d\'abord terminer le questionnaire pour accéder à la synthèse.');
+          return;
+        }
+        
+        // Afficher un message de chargement
+        showSuccess('Génération du PDF en cours...');
+        
+        // Générer le PDF
+        const pdf = await generatePDFFromHTML();
+        
+        // Générer le nom du fichier
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0];
+        const projectName = state.ident.projet ? state.ident.projet.replace(/[^a-zA-Z0-9]/g, '_') : 'questionnaire';
+        const fileName = `synthese_conformite_ia_${projectName}_${dateStr}.pdf`;
+        
+        // Générer le PDF en base64
+        const pdfBase64 = pdf.output('datauristring');
+        
+        // Créer le contenu de l'email
+        const subject = encodeURIComponent(`Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`);
+        const body = encodeURIComponent(`Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+Informations du projet :
+- Projet : ${state.ident.projet || '—'}
+- Phase : ${state.ident.phase || '—'}
+- Contact : ${state.ident.prenom || ''} ${state.ident.nom || ''}
+- Bureau : ${state.ident.bureau || '—'}
+- Email : ${state.ident.email || '—'}
+
+La synthèse détaillée est en pièce jointe.
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`);
+
+        // Adresse email de destination
+        const emailAddress = 'dtnum.donnees.conformite@dgfip.finances.gouv.fr';
+        
+        // Créer un lien mailto avec la pièce jointe
+        const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+        
+        // Essayer d'utiliser l'API Web Share si disponible
+        if (navigator.share && navigator.canShare) {
+          try {
+            // Convertir le PDF base64 en Blob
+            const pdfBlob = await fetch(pdfBase64).then(res => res.blob());
+            
+            const shareData = {
+              title: `Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`,
+              text: `Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+Informations du projet :
+- Projet : ${state.ident.projet || '—'}
+- Phase : ${state.ident.phase || '—'}
+- Contact : ${state.ident.prenom || ''} ${state.ident.nom || ''}
+- Bureau : ${state.ident.bureau || '—'}
+- Email : ${state.ident.email || '—'}
+
+La synthèse détaillée est en pièce jointe.
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`,
+              files: [new File([pdfBlob], fileName, { type: 'application/pdf' })]
+            };
+            
+            if (navigator.canShare(shareData)) {
+              await navigator.share(shareData);
+              showSuccess('PDF généré et partagé avec succès !');
+              return;
+            }
+          } catch (shareError) {
+            console.log('Web Share non disponible ou échoué:', shareError);
+          }
+        }
+        
+        // Méthode de fallback : télécharger le PDF et ouvrir l'email
+        const link = document.createElement('a');
+        link.href = pdfBase64;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Ouvrir le client de messagerie
+        setTimeout(() => {
+          try {
+            window.open(mailtoLink, '_blank');
+            showSuccess('PDF généré et téléchargé ! Le client de messagerie s\'ouvre. N\'oubliez pas de joindre le fichier PDF téléchargé.');
+          } catch (emailError) {
+            console.error('Erreur lors de l\'ouverture de l\'email:', emailError);
+            showError('PDF généré avec succès ! Veuillez envoyer manuellement à : ' + emailAddress);
+          }
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Erreur dans sendToConformityWithPDF:', error);
+        showError('Erreur lors de la génération du PDF. Utilisation de la méthode alternative...');
+        
+        // Fallback vers la méthode simple
+        sendToConformitySimple();
+      }
+    }
+
+    // Fonction simplifiée pour envoyer à la conformité
+    function sendToConformitySimple() {
+      try {
+        console.log('Envoi simplifié à la conformité');
+        
+        // Vérifier si on est dans la synthèse
+        if (!synthContainer || synthContainer.classList.contains('hidden')) {
+          showError('Veuillez d\'abord terminer le questionnaire pour accéder à la synthèse.');
+          return;
+        }
+        
+        // Créer le contenu de l'email
+        const subject = encodeURIComponent(`Synthèse conformité IA - ${state.ident.projet || 'Questionnaire'}`);
+        const body = encodeURIComponent(`Bonjour,
+
+Je vous transmets la synthèse de mon questionnaire de conformité IA pour le projet "${state.ident.projet || 'non spécifié'}".
+
+Informations du projet :
+- Projet : ${state.ident.projet || '—'}
+- Phase : ${state.ident.phase || '—'}
+- Contact : ${state.ident.prenom || ''} ${state.ident.nom || ''}
+- Bureau : ${state.ident.bureau || '—'}
+- Email : ${state.ident.email || '—'}
+
+Pour obtenir le PDF de la synthèse, veuillez :
+1. Utiliser le bouton "Imprimer la synthèse" sur cette page
+2. Choisir "Enregistrer au format PDF" dans les options d'impression
+3. Joindre le fichier PDF à votre réponse
+
+Cordialement,
+${state.ident.prenom || ''} ${state.ident.nom || ''}`);
+
+        // Adresse email de destination
+        const emailAddress = 'dtnum.donnees.conformite@dgfip.finances.gouv.fr';
+        
+        // Créer un lien mailto
+        const mailtoLink = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+        
+        // Ouvrir le client de messagerie
+        try {
+          window.open(mailtoLink, '_blank');
+          showSuccess('Client de messagerie ouvert avec succès ! N\'oubliez pas d\'imprimer la synthèse en PDF et de la joindre à votre email.');
+        } catch (emailError) {
+          console.error('Erreur lors de l\'ouverture de l\'email:', emailError);
+          showError('Impossible d\'ouvrir le client de messagerie. Veuillez copier manuellement l\'adresse : ' + emailAddress);
+        }
+        
+      } catch (error) {
+        console.error('Erreur dans sendToConformitySimple:', error);
+        showError('Une erreur est survenue. Veuillez utiliser le bouton "Imprimer la synthèse" puis envoyer manuellement à : dtnum.donnees.conformite@dgfip.finances.gouv.fr');
+      }
+    }
+
+
+    window.addEventListener('error', (e) => {
+      console.error('Erreur JavaScript:', e.error);
+      showError('Une erreur technique est survenue : ' + (e.message || 'erreur inconnue'));
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('Promise rejetée:', e.reason);
+      showError('Une erreur de traitement est survenue.');
+    });
+
+    function validateStep() {
+      const step = document.getElementById('stepContainer');
+      const required = step.querySelectorAll('[data-required="true"]');
+      let ok = true;
+      required.forEach(el => {
+        const valid = !!(el.value || (el.checked || step.querySelector(`[name="${el.name}"]:checked`)));
+        el.setAttribute('aria-invalid', valid ? 'false' : 'true');
+        ok = ok && valid;
+      });
+      document.getElementById('btnNext').disabled = !ok;
+      return ok;
+    }
+
+  </script>
+</body>
+</html>
