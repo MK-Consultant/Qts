@@ -393,7 +393,7 @@
   "entree": {
     "id": 0,
     "volet": "Srtucturant",
-    "question": "J'atteste que le Système d'IA ne traite aucune donnée personnelle et le modèle n'a jamais eu et n'aura jamais accès à des données prosnnelles.",
+    "question": "J'atteste que le Système d'IA ne traite aucune donnée personnelle et le modèle n'a jamais eu et n'aura jamais accès à des données persnnelles.",
     "contexte": "Un traitement de données personnelles comprend : la collecte, l'enregistrement, l'organisation, la conservation, la modification, l'extraction, la consultation, l'utilisation, la diffusion, l'effacement permettant d'identifier directement ou indirectement une personne physique. \n\nA l'inverse les agents IA sans état (Stateless) sont des systèmes qui traitent chaque interaction indépendamment, sans mémoire des échanges passés.\n\n",
     "oui": "Si oui, ignorer le volet RGPD",
     "non": "Vérifier le caractère identifiant et précis des données \n\nVérifier la présence de données rares, uniques ou minoritaires.\n\nVérifier le possible croisement d'un ensemble de données, un risque de ré-identification pourrait être possible",
@@ -450,7 +450,7 @@
       "id": 5,
       "volet": "RGPD",
       "question": "Le traitement est adéquat, pertinent et limité  (minimisation des données)",
-      "contexte": "La minimisation s'applique tout au long du traitement et permet de restreindre la collecte à ce qui nécessaire au bon fonctionnement du système d'IA\n\nArticle 5.1 c du RGPD (*) les données doivent être adéquates, pertinentes et limitées à ce qui est nécessaire au regard des finalités pour lesquelles elles sont traitées.",
+      "contexte": "La minimisation s'applique tout au long du traitement et permet de restreindre la collecte à ce qui nécessaire pour le bon fonctionnement du système d'IA\n\nArticle 5.1 c du RGPD (*) les données doivent être adéquates, pertinentes et limitées à ce qui est nécessaire au regard des finalités pour lesquelles elles sont traitées.",
       "oui": "Si oui, passer à la question suivante ",
       "non": "1.  Pendant la collecte et les phases de test :\nDocumenter les catégories de données selon les catégories de personnes et selon un premier puis second ensemble de finalités... \nVérifier que la donnée visée n'est pas soumise à une restriction particulière (notamment par décret)\nSi une  journalisation des données est mise en oeuvre, il ne faut collecter que celles nécessaires à la traçabilité  \n\n2. Au stade de l'utilisation il convient de prévoir une veille et une purge des données régulière et documentée",
       "info": "1.  Pendant la collecte et la phase de test :Pours les catégories de données : les classer en fonction des personnes concernées et selon un premier puis second ensemble de finalités...  Ex : pour l'analyse de document, ne traiter que les champs requis (ignorer/supprimer les informations hors sujet comme des données personnelles incidentes non utiles)\nPour les restrictions particulières (l'interdiction ou l'autorisation est souvent prévue  par décret). Ex : la collecte du NIR n'est possible que pour certains cas d'usages du secteur de la santé ou du secteur social.\nPour la journalisation des données : ne collecter que celles nécessaires à la traçabilité  (celles utiles au fonctionnement de IA  ne  sont pas à conserver).\nPour le jeu de donnée d'entraînement (sa source, son filtrage, afin de justifier que chaque catégorie de données a sa raison d'être) .Si possible, utiliser des données fictives ou anonymisées afin de réduire leur précision. \nPour les métriques : elles doivent être utilisées  pour mesure la performance du système et les conséquences pour les personnes concernées\n\n2. Au stade de l'utilisation :.  \nSi la donnée n'est pas strcitement nécéssaire il est possible de collecter cette données si l'utilisateur peut choisir d'utiliser ou non cette fonctionnalité (principe du consentement). \n ",
@@ -471,8 +471,8 @@
     {
       "id": 7,
       "volet": "RGPD",
-      "question": "Les mesures juridiques sont-elles prises pour le traitement de donnnées sensibles ou biométriques ?  ",
-      "contexte": "\nUne donnée sensible ou  biométrique est intransèque à la personne concernée : \n\nLes données sensibles sont définies à l'article 9 (*) et forment une catégorie particulière de données personnelles. \n\nLes données biométriques sont une sous catégorie de ces données dites \"sensibles\" et regroupent celles relatives à des caractéristiques physiques, physiologiques ou comportementales (la voix : permet de déduire : l'âge d'un individu, son sexe, ses origines, son éducation, ses ressentis, son état physique ou psychique…)\n",
+      "question": "Des mesures juridiques sont-elles prises pour le traitement de données sensibles ou biométriques ?  ",
+      "contexte": "\nUne donnée sensible ou biométrique est intransèque à la personne concernée : \n\nLes données sensibles sont définies à l'article 9 (*) et forment une catégorie particulière de données personnelles. \n\nLes données biométriques sont une sous catégorie de ces données dites \"sensibles\" et regroupent celles relatives à des caractéristiques physiques, physiologiques ou comportementales (la voix : permet de déduire : l'âge d'un individu, son sexe, ses origines, son éducation, ses ressentis, son état physique ou psychique…)\n",
       "oui": "Si oui, passer à la question suivante ",
       "non": "1. Mettre en place des mesures de transparence (informer sur les données traitées, les mises à jour et les dysfonctionnements)\n\n2.Tracer les lignes rouges du projet avant même tout usage expérimental du SIA \n\n3. Permettre à l'utilisateur de garder la main sur les données traitées et receuillir son consentement\n\n5. Démarche expérimentale pour tester et parfaire ces solutions technologiques \n\n6. Démarches administratives afférentes si nécessaire ",
       "info": "1. Les démarches administratives à réaliser :  \nRédiger un décret en Conseil d'État après avis de la CNIL\nS'il existe déjà, il faut se fonder sur celui-ci ou le mettre à jour au besoin\nTout organisme public (collectivités locales, ministères, etc.) qui en tant qu'employeur met en oeuvre un traitement biométrique doit appliquer le règlement type proposé par la CNIL\n\n2.Tracer des lignes rouges du projet avant même tout usage expérimental du SIA\nIdentifier les usages strictement interdits car trop intrustifs de la vie privée et des libertés indivciduelles\n\n3. Permettre à l'utilisateur de garder la main sur le système d'IA. Par exemple s'il s'agit d'une IA qui a pour but de faire du traitement de voix, l'utilisateur du système pourrait couper son micro ou s'opposer à l'enregistrement de la voix. \n\n4. Mettre en oeuvre une expérimentale qui permettra de tester et de parfaire des solutions techniques respectueuses du cadre juridique (modalités d'évaluation rigoureuse, contradictoire, pluridisciplinaire, limitée dans le temps, dispositif comparé avec d'autres dispositifs techniques). ",
@@ -482,7 +482,7 @@
     {
       "id": 8,
       "volet": "RGPD",
-      "question": "Une Analyse d'Impact sur la Protection des Données (AIPD/DPIA) a été réalisée",
+      "question": "Une Analyse d'Impact sur la Protection des Données (AIPD/DPIA) a été réalisée ?",
       "contexte": "\n\nL'analyse d'impact consiste à évaluer les risques liés aux traitements de données personnelles, conformément à l'article 35 du RGPD (*) , en identifiant, en mesurant et en limitant les risques pour la vie privée et en assurant la conformité des traitements. \n\nElle doit être menée avant la mise en œuvre du traitement et devra être mise à jour tout au long du cycle de vie du traitement.\n ",
       "oui": "Si oui, passer à la question suivante ",
       "non": "Déterminer si une AIPD est nécessaire et la réaliser si c'est le cas ;\nAccomplir la démarche de conformité ;\nMettre en place les mesures de résilience.",
@@ -493,7 +493,7 @@
     {
       "id": 9,
       "volet": "RGPD",
-      "question": "\n\n\n\nLes droits des personnes sont respectés et les mesures pour leur application sont implémentées ?",
+      "question": "\n\nLes droits des personnes sont respectés et les mesures pour leur application sont implémentées ?",
       "contexte": "\n\nL'information des utilisateurs vise à assurer la transparence sur la collecte et le traitement des données. L'information préalable facilite l'exercice éclairé des droits. \n\nLes droits des utilisateurs permettent à l'utilisateur de maîtriser et de contrôler ses données personnelles.\n\nLe CHAPITRE III du RGPD(*) regroupe l'ensemble des ces droits : l'accès, la rectification, l'effacement, la limitation, la portabilité et l'opposition au traitement de leurs données personnelles. \n\n\n\n",
       "oui": "Si oui, passer à la case suivante ",
       "non": "Distinguerclairement le droit à l'information et l'exercice des droits\n\n\nVérifier que l'information est concise, transparente, compréhensible et aisément accessible des personnes concernées\n\nFaire le bilan des droits applicables et répértorier les demandes d'exercice \n\nS'assurer que l'utilisateur a une bonne compréhension de ses doits\n\nPrévoir un moyen d'isoler ou de supprimer les données d'une personne sur demande ",
@@ -504,7 +504,7 @@
     {
       "id": 10,
       "volet": "RGPD",
-      "question": "Des mesures techniques et organisationelles sont-elles prises pour garantir le sécurité des données ?  ",
+      "question": "Des mesures techniques et organisationnelles sont-elles prises pour garantir la sécurité des données ?  ",
       "contexte": "L'article 32 du RGPD (*)  impose de mettre en œuvre des mesures techniques et organisationnelles adaptées pour garantir la sécurité des données personnelles, en fonction du risque associé au traitement.\n\n→ assurer le bon fonctionnement technique d'un SIA permet de prévenir des atteintes  aux droits fondamentaux de la charte : la protection des données (article 8), droit à une bonne administration (article 41), droit à la non discrimination (article 21)  \n\n",
       "oui": "Si oui, passer à la question suivante ",
       "non": "Signaler à la CNIL dans les 72 heures toutes violations  susceptibles de représenter un risque pour les droits et libertés des personnes concernées\n\nRemplir la check liste permettant d'avaluer le niveau de sucité des données personnelles : \nhttps://www.cnil.fr/sites/cnil/files/2024-03/guide_securite_donnees_personnelles_checklist.pdf",
@@ -515,7 +515,7 @@
     {
       "id": 11,
       "volet": "RGPD",
-      "question": "Les données personnelles peuvent-elle être annonymisées ? ",
+      "question": "Les données personnelles peuvent-elles être anonymisées ? ",
       "contexte": "\nll peut convenir selon  les cas d'usages, d'anonymiser les données pour éviter de façon certaine tout traitement de données personnelles ultérieur pour cause d'un problème technique ou d'une ré identification par croisement de données.  ",
       "oui": "Si oui, passer à la question suivante ",
       "non": "1. Mettre en place un process d'anonymisation ;\n\n2. Effectuer des tests pour évaluer la robustesse de l'anonymisation et le risque de ré-identification.",
@@ -526,7 +526,7 @@
     {
       "id": 12,
       "volet": "Srtucturant",
-      "question": "J'atteste que le Système d'IA n'est concerné par aucune pratique interdite selon l'IA Act.",
+      "question": "J'atteste que le système d'IA n'est concerné par aucune pratique interdite selon l'IA Act.",
       "contexte": "L'article 5(*) de l'AI Act liste l'ensemble des pratiques interdites que sont notammment : \n→ les techniques de manipulation subliminales,  exploitant les vulnérabilités liées à l'âge, au handicap ou à la situation sociale, de surveillance biométrique, de notation sociale ou toute technique susceptible de causer un préjudice important ",
       "oui": "Si oui, passer à la question suivante ",
       "non": "Adapter ou abandonner le projet pour éliminer la fonctionnalité interdite. \n\n",
@@ -537,8 +537,8 @@
     {
       "id": 13,
       "volet": "IA Act",
-      "question": "Le Système d'IA n'est pas considéré « à haut risque » ? ",
-      "contexte": "L'article 6 du RIA définit les Systèmes d'IA à haut risque (SIA à haut risque) et précise les critères (portée sur la santé, sécurité ou droits fondamentaux) avec des listes d'usages en annexes, ainsi que les obligations associées pour les opérateurs et la conformité à anticiper (lignes directrices et responsabilités tout au long de la chaîne de valeur).\n",
+      "question": "Le système d'IA n'est pas considéré à « haut risque » ? ",
+      "contexte": "L'article 6 du RIA définit les systèmes d'IA à haut risque et garantit les critères portés sur : la santé, la sécurité ou les droits fondamentaux. Il précise des listes d'usages en annexe avec les obligations associées pour les opérateurs et la conformité afin d'anticiper tout au long de la chaîne de valeur des lignes directrices et les responsabilités qui en découlent.\n",
       "oui": "Si oui, passer à la question suivante ",
       "non": "La catégorisation \"IA à haut risque\" impose des exigences de conformité plus strictes et une gestion des risques plus rigoureuse pour garantir la sécurité, la confidentialité et la protection des données personnelles des personnes physiques.\n",
       "info": "1. Exigences de conformité renforcées : Les systèmes d'IA à haut risque sont soumis à des exigences de conformité plus strictes, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n2. Analyse d'impact sur les droits fondamentaux : Les déployeurs de systèmes d'IA à haut risque doivent effectuer une analyse d'impact sur les droits fondamentaux, conformément à l'article 27 du règlement, pour évaluer les risques potentiels pour les droits fondamentaux des personnes physiques. \n3. Gestion des risques : Les systèmes d'IA à haut risque doivent être soumis à une gestion des risques plus rigoureuse, incluant l'identification, l'évaluation et la mitigation des risques potentiels pour la santé, la sécurité et les droits fondamentaux des personnes physiques. \n4. Essais et tests : Les systèmes d'IA à haut risque doivent être soumis à des essais et des tests plus rigoureux pour garantir leur conformité aux exigences de sécurité et de performance. \n5. Surveillance et maintenance : Les systèmes d'IA à haut risque doivent être soumis à une surveillance et une maintenance continues pour garantir leur conformité aux exigences de sécurité et de performance. \n6. Formation et sensibilisation : Les déployeurs de systèmes d'IA à haut risque doivent fournir une formation et une sensibilisation appropriées aux utilisateurs et aux personnes impliquées dans la mise en œuvre et la maintenance du système. \n7. Documentation et traçabilité : Les systèmes d'IA à haut risque doivent être documentés de manière appropriée, incluant la traçabilité des décisions et des actions prises par le système. \n8. Conformité aux normes et réglementations : Les systèmes d'IA à haut risque doivent être conformes aux normes et réglementations applicables, notamment en termes de sécurité, de confidentialité et de protection des données personnelles. \n9. Évaluation et certification : Les systèmes d'IA à haut risque peuvent être soumis à des évaluations et des certifications par des organismes tiers pour garantir leur conformité aux exigences de sécurité et de performance. \n10. Responsabilité et accountability : Les déployeurs de systèmes d'IA à haut risque sont responsables de la conformité de leur système et doivent être en mesure de démontrer leur conformité aux exigences de sécurité et de performance. \n\n",
@@ -548,7 +548,7 @@
     {
       "id": 14,
       "volet": "IA Act",
-      "question": "Les données d'utilisation ne sont pas assimilées pour améliorer le Système d'IA (auto-optimisation après déploiement) ",
+      "question": "Les données d'utilisation ne sont pas assimilées pour améliorer le système d'IA (auto-optimisation après déploiement) ",
       "contexte": "L'apprentissage continu permet aux modèles de s'adapter en permanence à de nouvelles données. \nLe SIA sera plus flexible, évolutif et personnalisé.\n\nL'Annexe XIII du RIA (*) classe ces SIA. Selon le niveau d'autonomie ils peuvent présenter un risque systémique\n→ Encadrer cette optimisation est une étape clé afin d'éviter toutes dérives du modèle. ",
       "oui": "Si oui, passer à la question suivante ",
       "non": "1. Maîtrise par l'agent du SIA : \n- Une validation par un agent humain pour toute optimisation importante (implique de fixer des seuils ou l'optimisation  car trop importante nécessite un contrôle)  \n- Offrir aux utilisateurs un choix quant à l'utilisation de leurs données pour l'apprentissage continu. Par exemple, permettre aux agents de marquer certaines conversations comme « à ne pas réutiliser pour entraîner l'IA », ou, si des données d'usagers sont impliquées, prévoir un mécanisme d'opt-out pour ces usagers.\n\n2. Finalité / minimisation\n-  Implémenter un  système qui permet de supprimer les donnée s d'optimisation plus rapidement (purge automatique plus régulières)\n- Séparer les finalités : considérer l'apprentissage continu comme un traitement à part avec sa propre base légale (souvent l'intérêt légitime du fournisseur à améliorer son IA, qui doit être mis en balance avec les droits des personnes). \n- Garanties : pseudonymisation des données avant réutilisation\n\n3. Prévoir des modes d'apprentissage différenciés : \n-  Dysfonctionnement : de l'algorithme \n- Retour utilisateur : donne une contextualisation servant à l'amélioration\n- La collecte pure et simple de nouveaux champ de données\n\n4. Vérifier l'échantillonnage des données d'amélioration :\n- documenter les éléments  mis à jour et  si auto-tuning (à préciser et dans quel cadre)\n- vérifier que  ne cible pas les mêmes groupes de personnes ou de données (l'objectif étant d'éviter les discriminations)   \n - Mettre en place un système de validation croisée des données ( objectif est de prévoir une réserve de  données pour  l'entraînement et le reste pour la validation du dataset) \n",
@@ -581,7 +581,7 @@
     {
       "id": 17,
       "volet": "IA Act",
-      "question": "Les personnes physiques en charge du développement/parmetrage du SIA ont-elles été sensibilisées aux enjeux juridiques ?",
+      "question": "Les personnes physiques en charge du développement/paramétrage du SIA ont-elles été sensibilisées aux enjeux juridiques ?",
       "contexte": "L'article 10 du RIA (*) évoque la prévention des risques de biais. La sensibilisation permet d'identifier et d'évaluer les risques liés aux biais pour in fine mettre en place des garanties contre l'erreur humaine : \n\n « Biais d'ancrage » influence trop importante / sur-dépendance au SIA / priorité à la première impression\n\n « Biais d'automatisation » confiance trop importante dans la décision proposée par le SIA\n\nMauvaise lecture/interprétation de ce qui ressort de l'analyse de l'IA",
       "oui": "Si oui, passer à la question suivante ",
       "non": "Formations obligatoires\n\nDéploiement progressif du SIA (bac à sable règlementaires)\n\nRédiger une politique interne pour le déploiement du système d'IA",
@@ -625,8 +625,8 @@
     {
       "id": 21,
       "volet": "IA Act",
-      "question": "L'éthique fait-elle partie intégrante du SIA ",
-      "contexte": "Le chapitre 10 du RIA (*) prévoit la rédaction de lignes directrices et codes de conduite. \n\nL'éthique fait de l'IA un outil au service de l'humain et de l'intérêt général : \n1. Elle assure un usage légitime, transparent et responsable de l'intelligence artificielle. \n2. Elle assure le respect des droits fondamentaux l'équité des décisions \n3. Renforce la confiance du public et encadre l'action des agents.  \n4. Assure la souveraineté technologique de l'État et la maîtrise de sa transformation numérique.",
+      "question": "L'éthique fait-elle partie intégrante du SIA ?",
+      "contexte": "Le chapitre 10 du RIA (*) prévoit la rédaction de lignes directrices et codes de conduite. \n\nL'éthique fait de l'IA un outil au service de l'humain et de l'intérêt général : \n1. Elle assure un usage légitime, transparent et responsable de l'intelligence artificielle. \n2. Elle assure le respect des droits fondamentaux et l'équité des décisions \n3. Renforce la confiance du public et encadre l'action des agents.  \n4. Assure la souveraineté technologique de l'État et la maîtrise de sa transformation numérique.",
       "oui": "Si oui, passer à la question suivante ",
       "non": "Faire usage du système d'IA dans un unique but d'intérêt général (définir ce que l'on entend par intérêt général), et dont les bénéfices servent à la société\n\n Favoriser et promouvoir le respect des droits fondamentaux de la charte \n\nRappeler et mettre en oeuvre les 7 principes non contraignants pour une IA digne de confiance et éthique (considérant 27 du RIA)",
       "info": "1.Apporter un bénéfice à la société : \nLe fonctionnement du SIA doit maximiser le bénéfice \nEtablir en amont des objectifs clairs et des indicateurs de performances pour la réalisation desdits objectifs\nUtiliser le SIA dans le cadre des missions de la DGFIP et répondre à une finalité d'intérêt général\n\n2. Faire intervenir l'ensemble des parties prenantes : administration universités, organisme de recherche, syndicats….\n\n3. Favoriser/faire apparaître  le respect de la charte des droits fondamentaux notamment : \nArt 8 sur la protection des données personnelles ;\nArt 21 sur le  droit à la non discrimination ;\nArticle 34 sur la sécurité sociale et aide sociale ;\nArt 41 sur le droit à une bonne administration.\n\n 4. Sept principes non contraignants pour une IA digne de confiance et éthique (considérant 27 du RIA) : \nl'intervention humaine et la surveillance\nla robustesse technique et la sécurité ;\nla protection de la vie privée ;\nle bien être sociétal et environnemental ;\nla transparence ;\nla diversité ;\nla non discrimination et l'équité.\n\n5. Alignement sur les objectifs de la stratégie nationale pour l'IA : \nPromouvoir une  IA de confiance dans le secteur public. \nIntégrer dès la phase de conception et par défaut, une conformité technique, juridique et sociétale",
@@ -659,7 +659,7 @@
       "id": 24,
       "volet": "AFNOR SPEC / GSEN",
       "question": "Des mesures sont-elles prises afin de maîtriser/encadrer l'environnement de test (réentraînement, si besoin)?",
-      "contexte": "L'objectif est ici d'évaluer en phase de test la performance et la qualité des résultats attendus : \n\n→ In fine il s'agit d'éviter des déploiements inefficaces et des mises à jour trop régulières, côuteuses pour l'environnement",
+      "contexte": "L'objectif est ici d'évaluer en phase de test la performance et la qualité des résultats attendus : \n\n→ In fine il s'agit d'éviter des déploiements inefficaces et des mises à jour trop régulières, coûteuses pour l'environnement",
       "oui": "Si oui, passer à la question suivante",
       "non": "1. En phase de test,  il conviendra d'optimiser au plus l'IA en y intégrant des critères liés à : \n- Un pourcentage de précision ;\n- Le temps de réponse de l'IA ;\n- Des résultats variés et surtout justifiés ;\n- L'intégration de certains critères d'acception minimal d'un résultat attendu\n\n2. Sur le réentraînement il conviendra de déterminer : sa  fréquence et  d'évaluer sa pertinence avec des critères objectifs",
       "info": "1. Ces KPI (critères de précision, temps de réspinse...) doivent s'apprécier selon : \n- La précision, attendue, \n- La généralisation ou personnalisation d'un résultat\n- L'efficacité et L'interprétabilité du résultat attendu (lasolution doit-être claire et compréhensible par l'agent)\n- Evolutivité du résultat si réentraîné \n\n2. Pour évaluer ces entraînements/tests dans une déclaration d'éco-conception qui DEVRA reprendre : \n- Définir des maîtrises de consommation de ressources CPU , GPU et TPU avec des métriques de qualité. \n- Dès la conception définir les paramètres de déclanchement d'un réentraînement et donc démontrer que la prolongation des phases de tests ou réentraînement est nécessaire au regard de l'études des KPI (ci-dessus) ;\n- Privilégier des modèles déjà entraînés ; \n- Si possible remplacer les entraînements sur des réseaux de deep learning via des techniques de regression ou de réseaux de neurones simples.",
